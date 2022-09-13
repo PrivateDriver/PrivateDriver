@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default class App extends React.Component {
   state = {
@@ -32,17 +32,17 @@ export default class App extends React.Component {
 
         <Text style={styles.text}>PrivateDriver.io</Text>
         {data?.map(v =>
-            <View key={v["id"]}>
-          <Text style={styles.text}>Vehicle</Text>
-          <Text style={{
-            margin: 10,
-            fontSize: 16
-          }}>{'Make ' + v["make"]}</Text>
-          <Text style={{
-            margin: 10,
-            fontSize: 16
-          }}>{'Model ' + v['model']}</Text>
-        </View>
+          <View key={v["id"]}>
+            <Text style={styles.text}>Vehicle</Text>
+            <Text style={{
+              margin: 10,
+              fontSize: 16
+            }}>{'Make ' + v["make"]}</Text>
+            <Text style={{
+              margin: 10,
+              fontSize: 16
+            }}>{'Model ' + v['model']}</Text>
+          </View>
         )}
         <StatusBar style="auto" />
       </View>
