@@ -4,11 +4,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default class App extends React.Component {
   state = {
-    data: {'activity': 'Loading...'}
+    data: []
   }
 
   getJsonData = () => {
-    fetch('http://localhost:3000/vehicles.json',
+    fetch('https://limo-app-server.loca.lt/vehicles.json',
     {method: "GET"}).then((response) => response.json())
     .then((responseJson) => {
       console.log(responseJson);
@@ -26,21 +26,24 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { data } = this.state;
     return (
       <View style={styles.container}>
-      
+
         <Text style={styles.text}>PrivateDriver.io</Text>
-          <View>
-            <Text style={styles.text}>Vehicle</Text>
-            <Text style={{margin:10, fontSize:16}}>{'Make ' + this.state.data['make']}</Text>
-            <Text style={{margin:10, fontSize:16}}>{'Model ' + this.state.data['model']}</Text>
-          </View>
-        <TouchableOpacity
-          onPress={(data) => alert((this.state.data['make']))}
-          style={styles.button}>
-          <Text style={styles.buttonText}>Get Data</Text>
-        </TouchableOpacity>
-  
+        {data?.map(v =>
+            <View key={v["id"]}>
+          <Text style={styles.text}>Vehicle</Text>
+          <Text style={{
+            margin: 10,
+            fontSize: 16
+          }}>{'Make ' + v["make"]}</Text>
+          <Text style={{
+            margin: 10,
+            fontSize: 16
+          }}>{'Model ' + v['model']}</Text>
+        </View>
+        )}
         <StatusBar style="auto" />
       </View>
     );
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    color: '#888', 
+    color: '#888',
     fontSize: 28,
     marginBottom: 20,
   },
@@ -67,5 +70,5 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#fff',
-  }, 
+  },
 });
