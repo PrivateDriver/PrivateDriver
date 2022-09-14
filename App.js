@@ -1,54 +1,93 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-export default class App extends React.Component {
-  state = {
-    data: []
-  }
+const App = () => {
+  const [data, setData] = useState([]);
 
-  getJsonData = () => {
-    fetch('https://limo-app-server.loca.lt/vehicles.json',
-    {method: "GET"}).then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-      this.setState({
-        data: responseJson
+  useEffect(() => {
+    fetch('https://limo-app-server.loca.lt/vehicles.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setData((s) => ([...s, ...data]));
       })
-    })
-    .catch((error) => {
-      console.error(error)
-    });
-  }
+      .catch((error) => {
+        console.error(error)
+      });
+  }, [])
 
-  componentDidMount = () => {
-    this.getJsonData()
-  };
+  return (
+    <View style={styles.container}>
 
-  render() {
-    const { data } = this.state;
-    return (
-      <View style={styles.container}>
-
-        <Text style={styles.text}>PrivateDriver.io</Text>
-        {data?.map(v =>
-          <View key={v["id"]}>
-            <Text style={styles.text}>Vehicle</Text>
-            <Text style={{
-              margin: 10,
-              fontSize: 16
-            }}>{'Make ' + v["make"]}</Text>
-            <Text style={{
-              margin: 10,
-              fontSize: 16
-            }}>{'Model ' + v['model']}</Text>
-          </View>
-        )}
-        <StatusBar style="auto" />
-      </View>
-    );
-  }
+      <Text style={styles.text}>PrivateDriver.io</Text>
+      {data.map(v =>
+        <View key={v["id"]}>
+          <Text style={styles.text}>Vehicle</Text>
+          <Text style={{
+            margin: 10,
+            fontSize: 16
+          }}>{'Make ' + v["make"]}</Text>
+          <Text style={{
+            margin: 10,
+            fontSize: 16
+          }}>{'Model ' + v['model']}</Text>
+        </View>
+      )}
+      <StatusBar style="auto" />
+    </View>
+  )
 }
+
+export default App;
+
+
+// export default class App extends React.Component {
+//   state = {
+//     data: []
+//   }
+//
+//   getJsonData = () => {
+//     fetch('https://limo-app-server.loca.lt/vehicles.json',
+//     {method: "GET"}).then((response) => response.json())
+//     .then((responseJson) => {
+//       console.log(responseJson);
+//       this.setState({
+//         data: responseJson
+//       })
+//     })
+//     .catch((error) => {
+//       console.error(error)
+//     });
+//   }
+//
+//   componentDidMount = () => {
+//     this.getJsonData()
+//   };
+//
+//   render() {
+//     const { data } = this.state;
+//     return (
+//       <View style={styles.container}>
+//
+//         <Text style={styles.text}>PrivateDriver.io</Text>
+//         {data?.map(v =>
+//           <View key={v["id"]}>
+//             <Text style={styles.text}>Vehicle</Text>
+//             <Text style={{
+//               margin: 10,
+//               fontSize: 16
+//             }}>{'Make ' + v["make"]}</Text>
+//             <Text style={{
+//               margin: 10,
+//               fontSize: 16
+//             }}>{'Model ' + v['model']}</Text>
+//           </View>
+//         )}
+//         <StatusBar style="auto" />
+//       </View>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
