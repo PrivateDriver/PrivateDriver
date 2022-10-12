@@ -10,6 +10,7 @@
     "expose-tunnel": "lt --port 3000 --subdomain limo-app-server"
   },
   "dependencies": {
+    "@smartcar/auth": "^2.9.0",
     "expo": "~46.0.9",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
