@@ -32,7 +32,7 @@ export const InnerContainer = styled.View`
 
     export const PageLogo = styled.Image`
     width: 325px;
-    height: 200px;
+    height: 150px;
     `;
 
     export const PageTitle = styled.Text`
@@ -61,7 +61,7 @@ export const InnerContainer = styled.View`
     padding-left: 55px;
     padding-right: 55px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 18px;
     height: 60px;
     margin-vertical: 3px;
     margin-bottom: 10px;
@@ -92,12 +92,28 @@ export const InnerContainer = styled.View`
     padding: 15px;
     background-color: ${brand};
     justify-content: center;
+    align-items: center;
     border-radius: 5px;
     margin-vertical: 5px;
     height: 60px;
     `;
 
     export const ButtonText = styled.Text`
-    color: ${primary};
-    font-size: 16px;
+    color: ${secondary};
+    font-size: 20px;
+    font-weight: bold;
+    `;
+
+    export const MsgBox = styled.Text`
+    text-align: center;
+    font-size: 13px;
+    color: ${secondary}
+    `;
+
+    export const Line = styled.View`
+    height: 1px;
+    marginBottom: 25px;
+    width: 100%;
+    background-color: ${tertiary};
+    margin-vertical: 10px;
     `;
