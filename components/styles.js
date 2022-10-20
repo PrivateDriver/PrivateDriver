@@ -5,20 +5,20 @@ import Constants from 'expo-constants';
 const StatusBarHeight = Constants.statusBarHeight;
 
 // colors
-export const colors = {
+export const Colors = {
     primary: '#000000',
     secondary: '#ffffff',
-    tertiary: '#666666',
+    tertiary: '#8e99a3',
     darkLight: '#333333',
     brand: '#de8d1a',
 };
 
-const { primary, secondary, tertiary, brand } = colors;
+export const { primary, secondary, tertiary, darkLight, brand } = Colors;
 
 export const StyledContainer = styled.View`
     flex: 1;
     padding: 25px;
-    padding-top: ${Constants.statusBarHeight + 100}px;
+    padding-top: ${Constants.statusBarHeight + 30}px;
     background-color: ${primary};
     align-items: center;
     justify-content: center;
@@ -31,7 +31,7 @@ export const InnerContainer = styled.View`
     `;
 
     export const PageLogo = styled.Image`
-    width: 250px;
+    width: 325px;
     height: 200px;
     `;
 
@@ -69,7 +69,7 @@ export const InnerContainer = styled.View`
     `;
 
     export const StyledInputLabel = styled.Text`
-    color: ${tertiary};
+    color: ${brand};
     font-size: 13px;
     text-align: left;
     `;
@@ -82,7 +82,7 @@ export const InnerContainer = styled.View`
     `;
 
     export const RightIcon = styled.View`
-    left: 15px;
+    right: 15px;
     top: 38px;
     position: absolute;
     z-index: 1;
