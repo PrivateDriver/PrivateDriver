@@ -4,24 +4,24 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screens
 import Login from './screens/login/Login';
-// import Events from './screens/events/Events';
-// import Drivers from './screens/drivers/Drivers';
-// import Clients from './screens/client/Clients';
-// import Vehicles from './screens/vehicles/Vehicles';
+import Events from './screens/events/Events';
+import Drivers from './screens/drivers/Drivers';
+import Clients from './screens/clients/Clients';
+import Vehicles from './screens/vehicles/Vehicles';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <Login />
-    // <NavigationContainer>  
-    //   <Stack.Navigator initialRouteName="Login">
-    //     <Stack.Screen name="Login" component={Login} />
-    //     {/* <Stack.Screen name="Events" component={Events} />
-    //     <Stack.Screen name="Drivers" component={Drivers} />
-    //     <Stack.Screen name="Clients" component={Clients} />
-    //     <Stack.Screen name="Vehicles" component={Vehicles} /> */}
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    // <Login />
+    <NavigationContainer>  
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Events" component={Events} />
+        <Stack.Screen name="Drivers" component={Drivers} />
+        <Stack.Screen name="Clients" component={Clients} />
+        <Stack.Screen name="Vehicles" component={Vehicles} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
