@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screens
-import Login from '../screens/login/Login';
+// import Login from '../screens/login/Login';
 import Events from '../screens/events/Events';
 import Drivers from '../screens/drivers/Drivers';
 import Clients from '../screens/clients/Clients';
@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 export default function Stacks() {
   return (  
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />
+        {/* <Stack.Screen name="Login" component={Login} /> */}
         <Stack.Screen name="Events" component={Events} />
         <Stack.Screen name="Drivers" component={Drivers} />
         <Stack.Screen name="Clients" component={Clients} />
