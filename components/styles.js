@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
+// import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 
 const StatusBarHeight = Constants.statusBarHeight;
@@ -35,13 +35,13 @@ export const InnerContainer = styled.View`
     height: 150px;
     `;
 
-    export const PageTitle = styled.Text`
-    font-size: 30px;
-    text-align: center;
-    font-weight: bold;
-    color: ${brand};
-    padding: 10px;
-    `;
+    // export const PageTitle = styled.Text`
+    // font-size: 30px;
+    // text-align: center;
+    // font-weight: bold;
+    // color: ${brand};
+    // padding: 10px;
+    // `;
 
     export const SubTitle = styled.Text`
     font-size: 18px;
@@ -76,14 +76,14 @@ export const InnerContainer = styled.View`
 
     export const LeftIcon = styled.View`
     left: 15px;
-    top: 38px;
+    top: 34px;
     position: absolute;
     z-index: 1;
     `;
 
-    export const RightIcon = styled.View`
+    export const RightIcon = styled.TouchableOpacity`
     right: 15px;
-    top: 38px;
+    top: 34px;
     position: absolute;
     z-index: 1;
     `;
@@ -100,7 +100,7 @@ export const InnerContainer = styled.View`
 
     export const ButtonText = styled.Text`
     color: ${secondary};
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     `;
 
@@ -116,4 +116,28 @@ export const InnerContainer = styled.View`
     width: 100%;
     background-color: ${tertiary};
     margin-vertical: 10px;
+    `;
+
+    export const ExtraView = styled.View`
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+    `;
+
+    export const ExtraText = styled.Text`
+        justify-content: center;
+        align-content: center;
+        color: ${tertiary}
+        font-size: 15px;
+    `;
+
+    export const TextLink = styled.TouchableOpacity`
+        justify-content: center;
+        align-items: center;
+    `;
+
+    export const TextLinkContent = styled.Text`
+        color: ${brand};
+        font-size: 15px;
     `;

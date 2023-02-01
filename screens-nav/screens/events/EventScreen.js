@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Button, Text, View } from 'react-native';
-// import { StatusBar } from 'expo-status-bar';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
-function Drivers({ navigation }) {
+const EventScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       
@@ -29,8 +24,26 @@ function Drivers({ navigation }) {
         title="Vehicles"
         onPress={() => navigation.navigate('Vehicles')}
       />
+
+      <Button
+        title="Chat"
+        onPress={() => navigation.navigate('Chat')}
+      />
+
+      <Button
+        title="Map"
+        onPress={() => navigation.navigate('Map')}
+      />
+
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate('Login')}
+      />
     </View>
   );
 }
 
-export default Drivers;
+
+
+export default EventScreen;
+

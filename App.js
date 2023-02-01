@@ -1,22 +1,19 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Stack from './src/navigation/Stacks';
-import Tabs from './src/navigation/Tabs';
-// import Login from './screens/login/Login';
+import Stack from './screens-nav/navigation/Stacks';
+// import Tabs from './screens-nav/navigation/Tabs';
+
+// screens
+import LoginScreen from './screens-nav/screens/login/LoginScreen';
 
 export default function App() {
   return (
-   <> 
-    <NavigationContainer> 
-      {/* <Login /> */}
-      <Stack /> 
-
-    </NavigationContainer>
+    // <LoginScreen />
     
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
-    </>
+      <NavigationContainer> 
+        <Stack /> 
+      </NavigationContainer>
+
   );
 }
 
