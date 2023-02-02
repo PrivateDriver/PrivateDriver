@@ -27,19 +27,11 @@ const ChatScreen = () => {
       />
 
       <Button
-        title="Chat"
-        onPress={() => navigation.navigate('Chat')}
-      />
-
-      <Button
         title="Map"
         onPress={() => navigation.navigate('Map')}
       />
 
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('Login')}
-      />
+      
     </View>
   );
 };

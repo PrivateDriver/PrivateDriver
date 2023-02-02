@@ -17,11 +17,6 @@ const ClientScreen = ({ navigation }) => {
       />
       
       <Button
-        title="Clients"
-        onPress={() => navigation.navigate('Clients')}
-      />
-      
-      <Button
         title="Vehicles"
         onPress={() => navigation.navigate('Vehicles')}
       />
@@ -36,10 +31,7 @@ const ClientScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('Map')}
       />
 
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('Login')}
-      />
+      
     </View>
   );
 }

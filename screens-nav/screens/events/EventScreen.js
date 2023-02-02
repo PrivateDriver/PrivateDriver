@@ -6,11 +6,6 @@ const EventScreen = ({ navigation }) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       
       <Button
-        title="Events"
-        onPress={() => navigation.navigate('Events')}
-      />
-      
-      <Button
         title="Drivers"
         onPress={() => navigation.navigate('Drivers')}
       />
@@ -35,10 +30,7 @@ const EventScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('Map')}
       />
 
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('Login')}
-      />
+      
     </View>
   );
 }

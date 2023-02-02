@@ -40,7 +40,6 @@ const LoginScreen = ({navigation}) => {
 
     return (
         <StyledContainer>
-        {/* <StatusBar translucent={true} backgroundColor={'transparent'}  /> */}
             <StatusBar style="light-dark" />
             <InnerContainer>
                 <PageLogo resizeMode="contain" source={require('../../../assets/privatedriver-logo-app.png')}/>

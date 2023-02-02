@@ -16,11 +16,6 @@ function DriverScreen({ navigation }) {
       />
       
       <Button
-        title="Drivers"
-        onPress={() => navigation.navigate('Drivers')}
-      />
-      
-      <Button
         title="Clients"
         onPress={() => navigation.navigate('Clients')}
       />
@@ -40,10 +35,7 @@ function DriverScreen({ navigation }) {
         onPress={() => navigation.navigate('Map')}
       />
 
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('Login')}
-      />
+     
     </View>
   );
 }
