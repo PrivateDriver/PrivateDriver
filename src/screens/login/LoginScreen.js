@@ -28,7 +28,7 @@ import {
     TextLink,
     TextLinkContent,
     
-} from '../../../components/styles';
+} from '../../components/styles';
 import { View } from 'react-native'
 
 //Colors
@@ -42,7 +42,7 @@ const LoginScreen = ({navigation}) => {
         <StyledContainer>
             <StatusBar style="light-dark" />
             <InnerContainer>
-                <PageLogo resizeMode="contain" source={require('../../../assets/privatedriver-logo-app.png')}/>
+                <PageLogo resizeMode="contain" source={require('../../assets/privatedriver-logo-app.png')}/>
                 <SubTitle>Account Login</SubTitle>
                 <Formik
                     initialValues={{email: '', password: ''}}
