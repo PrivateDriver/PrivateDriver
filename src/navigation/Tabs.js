@@ -1,11 +1,11 @@
 import {createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import Events from '../screens/events/Events';
-import Drivers from '../screens/drivers/Drivers';
-import Clients from '../screens/clients/Clients';
-import Vehicles from '../screens/vehicles/Vehicles';
-import Chat from '../screens/chat/Chat';
-import Map from '../screens/map/Map';
+import Events from '../screens/home/events/EventScreen';
+import Drivers from '../screens/home/drivers/DriverScreen';
+import Clients from '../screens/home/clients/ClientScreen';
+import Vehicles from '../screens/home/vehicles/VehicleScreen';
+import Chat from '../screens/home/chat/ChatScreen';
+import Map from '../screens/home/map/MapScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 

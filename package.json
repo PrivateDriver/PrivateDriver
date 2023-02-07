@@ -10,6 +10,7 @@
     "expose-tunnel": "lt --port 3000 --subdomain limo-app-server"
   },
   "dependencies": {
+    "@react-navigation/drawer": "^6.5.8",
     "@react-navigation/material-bottom-tabs": "^6.2.4",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
