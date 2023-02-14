@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Button, Text, View } from 'react-native';
-// import { StatusBar } from 'expo-status-bar';
-
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, View, SafeAreaView } from 'react-native';
 
 
 function DriverScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       
-      <Button
+      <SafeAreaView>
+        <Button
         title="Events"
         onPress={() => navigation.navigate('Events')}
       />
@@ -25,15 +21,7 @@ function DriverScreen({ navigation }) {
         onPress={() => navigation.navigate('Vehicles')}
       />
 
-      <Button
-        title="Chat"
-        onPress={() => navigation.navigate('Chat')}
-      />
-
-      <Button
-        title="Map"
-        onPress={() => navigation.navigate('Map')}
-      />
+      </SafeAreaView>
 
      
     </View>

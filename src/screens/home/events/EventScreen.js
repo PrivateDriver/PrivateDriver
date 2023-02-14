@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Button, Text, View } from 'react-native';
+import { Button, View, SafeAreaView } from 'react-native';
 
 const EventScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       
-      <Button
+      <SafeAreaView>
+        <Button
         title="Drivers"
         onPress={() => navigation.navigate('Drivers')}
       />
@@ -19,16 +20,8 @@ const EventScreen = ({ navigation }) => {
         title="Vehicles"
         onPress={() => navigation.navigate('Vehicles')}
       />
-
-      <Button
-        title="Chat"
-        onPress={() => navigation.navigate('Chat')}
-      />
-
-      <Button
-        title="Map"
-        onPress={() => navigation.navigate('Map')}
-      />
+      
+      </SafeAreaView>
 
       
     </View>

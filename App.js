@@ -2,11 +2,11 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import Stack from './src/navigation/Stacks';
+// import Stack from './src/navigations/Stacks';
+import AuthNavigator from './src/navigations/AuthNavigator';
 // import Tabs from './src/navigation/Tabs';
 
 // screens
-// import LoginScreen from './src/screens/auth/LoginScreen';
 
 export default function App() {
   return (
@@ -17,7 +17,8 @@ export default function App() {
           flex: 1,
           justifyContent: 'center',
           }} >
-          <Stack /> 
+          {/* <Stack /> */}
+          <AuthNavigator /> 
           {/* <Tabs /> */}
         </SafeAreaView>
       </NavigationContainer>

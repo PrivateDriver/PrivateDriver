@@ -42,7 +42,7 @@ const LoginScreen = ({navigation}) => {
         <StyledContainer>
             <StatusBar style="light-dark" />
             <InnerContainer>
-                <PageLogo resizeMode="contain" source={require('../../assets/privatedriver-logo-app.png')}/>
+                <PageLogo resizeMode="contain" source={require('../../assets/icons/privatedriver-logo-app.png')}/>
                 <SubTitle>Account Login</SubTitle>
                 <Formik
                     initialValues={{email: '', password: ''}}
@@ -76,7 +76,7 @@ const LoginScreen = ({navigation}) => {
                                 setHidePassword={setHidePassword}
                             />
                             <MsgBox>...</MsgBox>
-                            <StyledButton onPress={handleSubmit}>
+                            <StyledButton onPress={() => navigation.navigate('Events')}>
                                 <ButtonText>LOGIN</ButtonText>
                             </StyledButton>
                             <Line />
@@ -90,8 +90,6 @@ const LoginScreen = ({navigation}) => {
                         </StyledFormArea>
                     )}
                 </Formik>
-                <Button title="Events" onPress={() => navigation.navigate('Events')}
-      />
             </InnerContainer>
         </StyledContainer>
     );

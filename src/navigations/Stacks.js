@@ -1,13 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screens
-import Login from '../screens/auth/LoginScreen';
-import Events from '../screens/home/events/EventScreen';
-import Drivers from '../screens/home/drivers/DriverScreen';
-import Clients from '../screens/home/clients/ClientScreen';
-import Vehicles from '../screens/home/vehicles/VehicleScreen';
-import Chat from '../screens/home/chat/ChatScreen';
-import Map from '../screens/home/map/MapScreen';
+import {Login, Events, Drivers, Clients, Vehicles} from '../screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,8 +13,6 @@ export default function Stacks() {
         <Stack.Screen name="Drivers" component={Drivers} />
         <Stack.Screen name="Clients" component={Clients} />
         <Stack.Screen name="Vehicles" component={Vehicles} />
-        <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="Map" component={Map} />
       </Stack.Navigator>
   );
 }
