@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { Events, Drivers, Clients, Vehicles } from '../screens'
+import { Home, Events, Drivers, Clients, Vehicles } from '../screens'
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   return (
     <Tab.Navigator>
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Events" component={Events} />
       <Tab.Screen name="Drivers" component={Drivers} />
       <Tab.Screen name="Clients" component={Clients} />

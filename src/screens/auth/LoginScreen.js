@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 
-import { Button } from 'react-native'
-
 //formik
 import { Formik } from 'formik';
 //icons
@@ -76,7 +74,7 @@ const LoginScreen = ({navigation}) => {
                                 setHidePassword={setHidePassword}
                             />
                             <MsgBox>...</MsgBox>
-                            <StyledButton onPress={() => navigation.navigate('Events')}>
+                            <StyledButton onPress={() => navigation.navigate('Home')}>
                                 <ButtonText>LOGIN</ButtonText>
                             </StyledButton>
                             <Line />
