@@ -1,5 +1,4 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 

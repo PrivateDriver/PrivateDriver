@@ -9,11 +9,27 @@ export default function AuthNavigator() {
   return (
     <Stack.Navigator initialRouteName="Login">
         <Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
-        <Stack.Screen name="Home" component={BottomTabNavigator} />
-        <Stack.Screen name="Events" component={Events} />
-        <Stack.Screen name="Drivers" component={Drivers} />
-        <Stack.Screen name="Clients" component={Clients} />
-        <Stack.Screen name="Vehicles" component={Vehicles} />
+        <Stack.Screen 
+          name="Home" 
+          component={BottomTabNavigator} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Events" 
+          component={Events} 
+          />
+        <Stack.Screen 
+          name="Drivers" 
+          component={Drivers} 
+          />
+        <Stack.Screen 
+          name="Clients" 
+          component={Clients} 
+          />
+        <Stack.Screen 
+          name="Vehicles" 
+          component={Vehicles} 
+          />
     </Stack.Navigator>
   );
 }

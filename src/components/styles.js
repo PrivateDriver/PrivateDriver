@@ -143,3 +143,13 @@ export const InnerContainer = styled.View`
     `;
 
     // End Login
+    // Tab Bar Style
+    export const TabBarStyled = styled.tabBarStyle`
+    position: 'absolute',
+    backgroundColor: COLORS.transparent,
+    borderTopWidth: 0,
+    bottom: 15,
+    right: 10,
+    left: 10,
+    height: 92,
+    `;
