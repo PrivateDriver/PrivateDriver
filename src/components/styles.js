@@ -1,8 +1,7 @@
 import styled from 'styled-components/native';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 
-const StatusBarHeight = Constants.statusBarHeight;
+// const StatusBarHeight = Constants.statusBarHeight;
 
 // colors
 export const Colors = {
@@ -15,6 +14,7 @@ export const Colors = {
 
 export const { primary, secondary, tertiary, darkLight, brand } = Colors;
 
+//Login Styles
 export const StyledContainer = styled.View`
     flex: 1;
     padding: 25px;
@@ -141,3 +141,5 @@ export const InnerContainer = styled.View`
         color: ${brand};
         font-size: 15px;
     `;
+
+    // End Login

@@ -1,17 +1,12 @@
 import React from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { Button, View, SafeAreaView } from 'react-native';
 
-
-const ChatScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       
-      <Button
-        title="Events"
-        onPress={() => navigation.navigate('Events')}
-      />
-      
-      <Button
+      <SafeAreaView>
+        <Button
         title="Drivers"
         onPress={() => navigation.navigate('Drivers')}
       />
@@ -25,18 +20,12 @@ const ChatScreen = () => {
         title="Vehicles"
         onPress={() => navigation.navigate('Vehicles')}
       />
-
-      <Button
-        title="Map"
-        onPress={() => navigation.navigate('Map')}
-      />
+      
+      </SafeAreaView>
 
       
     </View>
   );
-};
+}
 
-export default ChatScreen;
-  
-
-
+export default HomeScreen;
