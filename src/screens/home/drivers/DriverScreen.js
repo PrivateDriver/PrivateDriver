@@ -1,10 +1,14 @@
-import { Button, View, SafeAreaView } from 'react-native';
+import { Button, View, Text, SafeAreaView } from 'react-native';
 
 
 function DriverScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       
+      <View>
+      <Text>Driver</Text>
+      </View>
+
       <SafeAreaView>
         <Button
         title="Events"

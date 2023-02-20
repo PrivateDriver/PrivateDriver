@@ -1,31 +1,36 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons'
-import styled from 'styled-components';
-
-import { Home, Events, Drivers, Clients, Vehicles } from '../screens'
+import { StyleSheet } from 'react-native';
+import { Colors } from '../components/styles'
+import { Home, Events } from '../screens'
 
 const Tab = createBottomTabNavigator();
+const { brand, tertiary } = Colors;
 
 export default function BottomTabNavigator() {
+
   return (
     <Tab.Navigator 
       screenOptions={({route}) => ({
         headerShown: false,
-        // tabBarShowLabel: false,
-        tabBarIcon: ({color, size, focused}) => {
-          let iconName;
+        tabBarShowLabel: false,
+        tabBarStyle: styles.tabBarStyle,
+        tabBarIcon: ({ color, size }) => {
+          const icons= {
+            Home: 'home-sharp',
+            Events: 'md-calendar-sharp'
+          }
 
-              if (route.name === Home) {
-                iconName = focused ? 'ios-home-sharp' : 'ios-home-outline';
-              } else if (route.name === Events) {
-                iconName = focused ? 'settings' : 'settings-outline';
-              }
-
-          return <Icon name={iconName} size={22} color={color} />
+          return (
+            <Icon 
+              name={icons[route.name]} 
+              size={25} 
+              color={color} 
+              />)
         },
-        })
-        }
-        >
+         })
+}
+      >
 
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Events" component={Events} />
@@ -36,4 +41,15 @@ export default function BottomTabNavigator() {
   );
 }
 
+const styles = StyleSheet.create({
+  tabBarStyle: {
+    position: 'absolute',
+    backgroundColor: {brand},
+    borderTopWidth: 0,
+    bottom: 15,
+    right: 20,
+    left: 20,
+    height: 92,
+  },
+});
 
