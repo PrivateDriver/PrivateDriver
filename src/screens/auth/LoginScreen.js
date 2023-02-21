@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 
 //formik
@@ -29,13 +29,27 @@ import {
 } from '../../components/styles';
 import { View } from 'react-native'
 
+// Login Auth
+// const Auth = () => {
+//   const [data, setData] = useState([]);
+
+//   useEffect(() => {
+//     fetch('https://limo-app-server.loca.lt')
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setData((s) => ([...s, ...data]));
+//       })
+//       .catch((error) => {
+//         console.error(error)
+//       });
+//   }, [])
+
 //Colors
 const { brand, tertiary } = Colors;
 
 const LoginScreen = ({navigation}) => {
-
-        const [hidePassword, setHidePassword] = useState(true);
-
+const [hidePassword, setHidePassword] = useState(true);
+        
     return (
         <StyledContainer>
             <StatusBar style="light-dark" />
