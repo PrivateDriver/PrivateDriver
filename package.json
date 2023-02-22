@@ -7,7 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "expose-tunnel": "lt --port 3000 --subdomain limo-app-server"
+    "expose-tunnel": "lt --port 3000 --subdomain limo-app-server",
+    "check": "prettier --check .",
+    "prettier-fix": "prettier --write ."
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.4",
@@ -31,7 +33,17 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "concurrently": "^7.4.0",
-    "localtunnel": "^2.0.2"
+    "localtunnel": "^2.0.2",
+    "prettier": "^2.8.4"
   },
-  "private": true
+  "private": true,
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "useTabs": false,
+    "arrowParens": "avoid",
+    "printWidth": 120
+  }
 }
