@@ -29,25 +29,16 @@ import {
 } from '../../components/styles'
 import { View } from 'react-native'
 
-// Login Auth
-// const Auth = () => {
-//   const [data, setData] = useState([]);
+const JeffSubmit = () => {
+  console.log('Hi')
+}
 
-//   useEffect(() => {
-//     fetch('https://limo-app-server.loca.lt')
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setData((s) => ([...s, ...data]));
-//       })
-//       .catch((error) => {
-//         console.error(error)
-//       });
-//   }, [])
+
 
 //Colors
 const { brand, tertiary } = Colors
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
   const [hidePassword, setHidePassword] = useState(true)
 
   return (
@@ -65,20 +56,22 @@ const LoginScreen = ({ navigation }) => {
                 password: values.password,
               },
             }
+            console.log(payload)
 
+            // Login Auth
             const response = await axios.post('https://limo-app-server.loca.lt/api/auth', payload)
             if (response.status === 401) {
               console.log('Invalid credentials')
             }
             if (response.status === 200) {
-              console.log('Logged in successfully')
+              // console.log('Logged in successfully')
 
               // Actual auth work here....
               //
               // The authorization header is what we need to
               //   save and send back in all future requests
-              console.log(response.headers.authorization)
-              localStorage.setItem('auth', response.headers.authorization)
+              // console.log(response.headers.authorization)
+              // localStorage.setItem('auth', response.headers.authorization)
 
               // Set a default for axios so all future requests
               // automatically get that header
@@ -98,7 +91,7 @@ const LoginScreen = ({ navigation }) => {
             }
           }}>
           {({ handleChange, handleBlur, handleSubmit, values }) => (
-            <StyledFormArea>
+            <StyledFormArea >
               <MyTextInput
                 label="Email Address"
                 icon="mail"
@@ -124,7 +117,7 @@ const LoginScreen = ({ navigation }) => {
                 setHidePassword={setHidePassword}
               />
               <MsgBox>...</MsgBox>
-              <StyledButton onPress={() => navigation.navigate('Home')}>
+              <StyledButton onPress={handleSubmit}>
                 <ButtonText>LOGIN</ButtonText>
               </StyledButton>
               <Line />
@@ -159,4 +152,4 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
   )
 }
 
-export default LoginScreen
+export default LoginScreen;

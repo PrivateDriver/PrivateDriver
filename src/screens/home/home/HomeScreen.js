@@ -20,6 +20,11 @@ const HomeScreen = ({ navigation }) => {
         title="Vehicles"
         onPress={() => navigation.navigate('Vehicles')}
       />
+
+      <Button
+        title="LogIn Screen"
+        onPress={() => navigation.navigate('Login')}
+      />
       
       </SafeAreaView>
 
