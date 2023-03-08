@@ -6,9 +6,9 @@ const ClientScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <View>
-      <Text>Client</Text>
+        <Text>Client</Text>
       </View>
-      
+
       <SafeAreaView>
         <Button
         title="Events"
