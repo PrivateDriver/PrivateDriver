@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import axios from 'axios';
 
 //formik
-import { Formik } from 'formik'
+import { Formik } from 'formik';
 //icons
-import { Octicons, Ionicons } from '@expo/vector-icons'
+import { Octicons, Ionicons } from '@expo/vector-icons';
 
 import {
   StyledContainer,
@@ -26,48 +26,55 @@ import {
   ExtraText,
   TextLink,
   TextLinkContent,
-} from '../../components/styles'
-import { View } from 'react-native'
+} from '../../components/styles';
+import { View } from 'react-native';
 
 const JeffSubmit = () => {
-  console.log('Hi')
-}
-
-
+  console.log('Hi');
+};
 
 //Colors
-const { brand, tertiary } = Colors
+const { brand, tertiary } = Colors;
 
 const LoginScreen = () => {
-  const [hidePassword, setHidePassword] = useState(true)
+  const [hidePassword, setHidePassword] = useState(true);
 
   return (
     <StyledContainer>
-      <StatusBar style="light-dark" />
+      <StatusBar style='light-dark' />
       <InnerContainer>
-        <PageLogo resizeMode="contain" source={require('../../assets/icons/privatedriver-logo-app.png')} />
+        <PageLogo
+          resizeMode='contain'
+          source={require('../../assets/icons/privatedriver-logo-app.png')}
+        />
         <SubTitle>Account Login</SubTitle>
         <Formik
           initialValues={{ email: '', password: '' }}
-          onSubmit={async values => {
+          onSubmit={async (values) => {
+            try {
+
             const payload = {
               user: {
                 email: values.email,
                 password: values.password,
               },
-            }
-            console.log(payload)
+            };
+            console.log(payload);
 
             // Login Auth
-            const response = await axios.post('https://limo-app-server.loca.lt/api/auth', payload)
+            const response = await axios.post(
+              'https://limo-app-server.loca.lt/api/auth',
+              payload
+            );
             if (response.status === 401) {
-              console.log('Invalid credentials')
+              console.log('Invalid credentials');
             }
             if (response.status === 200) {
               // console.log('Logged in successfully')
 
               // Actual auth work here....
               //
+              // LocalStorage
               // The authorization header is what we need to
               //   save and send back in all future requests
               // console.log(response.headers.authorization)
@@ -77,36 +84,54 @@ const LoginScreen = () => {
               // automatically get that header
               // If we use this code we don't need the localStorage business
               // since axios will automatically send the header for us.
-              axios.defaults.headers.common['Authorization'] = response.headers.authorization
+              axios.defaults.headers.common['Authorization'] =
+                response.headers.authorization;
 
               // When you logout, send the DELETE /api/auth request and
               // then remove the auth header from axios
               // axios.defaults.headers.common['Authorization'] = null
 
               // Later on:
-              //   const auth = localStorage.getItem('auth')
-              //   const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
+              // const auth = localStorage.getItem('auth')
+              // const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
 
               // Now we can navigate to the home screen
             }
-          }}>
+          } catch (error)
+          {
+            if (error.response) {
+              // Request made but the server responded with an error
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // Request made but no response is received from the server.
+              console.log(error.request);
+            } else {
+              // Error occured while setting up the request
+              console.log('Error', error.message);
+            }
+          }
+          }
+            }
+        >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
-            <StyledFormArea >
+            <StyledFormArea>
               <MyTextInput
-                label="Email Address"
-                icon="mail"
-                placeholder="your@email.com"
+                label='Email Address'
+                icon='mail'
+                placeholder='your@email.com'
                 placeholderTextColor={tertiary}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
-                keyboardType="email-address"
+                keyboardType='email-address'
               />
 
               <MyTextInput
-                label="Password"
-                icon="lock"
-                placeholder="* * * * * * * * * *"
+                label='Password'
+                icon='lock'
+                placeholder='* * * * * * * * * *'
                 placeholderTextColor={tertiary}
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
@@ -128,14 +153,22 @@ const LoginScreen = () => {
                 </TextLink>
               </ExtraView>
             </StyledFormArea>
-          )}
+          )}{' '}
+          catch (error) {}
         </Formik>
       </InnerContainer>
     </StyledContainer>
-  )
-}
+  );
+};
 
-const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
+const MyTextInput = ({
+  label,
+  icon,
+  isPassword,
+  hidePassword,
+  setHidePassword,
+  ...props
+}) => {
   return (
     <View>
       <LeftIcon>
@@ -145,11 +178,15 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
       <StyledTextInput {...props} />
       {isPassword && (
         <RightIcon onPress={() => setHidePassword(!hidePassword)}>
-          <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={brand} />
+          <Ionicons
+            name={hidePassword ? 'md-eye-off' : 'md-eye'}
+            size={30}
+            color={brand}
+          />
         </RightIcon>
       )}
     </View>
-  )
-}
+  );
+};
 
 export default LoginScreen;
