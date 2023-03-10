@@ -29,10 +29,6 @@ import {
 } from '../../components/styles';
 import { View } from 'react-native';
 
-const JeffSubmit = () => {
-  console.log('Hi');
-};
-
 //Colors
 const { brand, tertiary } = Colors;
 
@@ -51,7 +47,8 @@ const LoginScreen = () => {
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={async (values) => {
-            try {
+
+            try{
 
             const payload = {
               user: {
@@ -70,7 +67,7 @@ const LoginScreen = () => {
               console.log('Invalid credentials');
             }
             if (response.status === 200) {
-              // console.log('Logged in successfully')
+                console.log('Logged in successfully')
 
               // Actual auth work here....
               //
@@ -92,28 +89,19 @@ const LoginScreen = () => {
               // axios.defaults.headers.common['Authorization'] = null
 
               // Later on:
-              // const auth = localStorage.getItem('auth')
-              // const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
+              //   const auth = localStorage.getItem('auth')
+              //   const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
 
               // Now we can navigate to the home screen
             }
-          } catch (error)
-          {
-            if (error.response) {
-              // Request made but the server responded with an error
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // Request made but no response is received from the server.
-              console.log(error.request);
-            } else {
-              // Error occured while setting up the request
-              console.log('Error', error.message);
+
+          } catch (error) {
+            //ERROR Logic here 
             }
-          }
+          
           }
             }
+
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <StyledFormArea>
@@ -153,8 +141,7 @@ const LoginScreen = () => {
                 </TextLink>
               </ExtraView>
             </StyledFormArea>
-          )}{' '}
-          catch (error) {}
+          )}
         </Formik>
       </InnerContainer>
     </StyledContainer>
