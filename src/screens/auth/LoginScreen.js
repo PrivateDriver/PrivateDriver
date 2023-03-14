@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import axios from 'axios'
 
+import Auth from '../../modules/auth'
 //formik
 import { Formik } from 'formik'
 //icons
@@ -28,11 +29,6 @@ import {
   TextLinkContent,
 } from '../../components/styles'
 import { View } from 'react-native'
-
-const JeffSubmit = () => {
-  console.log('Hi')
-}
-
 
 
 //Colors
@@ -89,9 +85,10 @@ const LoginScreen = () => {
 
               // Now we can navigate to the home screen
             }
-          }}>
+          }}
+        >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
-            <StyledFormArea >
+            <StyledFormArea>
               <MyTextInput
                 label="Email Address"
                 icon="mail"
@@ -152,4 +149,4 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
   )
 }
 
-export default LoginScreen;
+export default LoginScreen
