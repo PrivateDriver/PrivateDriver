@@ -32,7 +32,7 @@ import { View } from 'react-native';
 //Colors
 const { brand, tertiary } = Colors;
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [hidePassword, setHidePassword] = useState(true);
 
   return (
@@ -45,63 +45,58 @@ const LoginScreen = () => {
         />
         <SubTitle>Account Login</SubTitle>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ email: 'me@email.com', password: 'password' }}
           onSubmit={async (values) => {
+            try {
+              const payload = {
+                user: {
+                  email: values.email,
+                  password: values.password,
+                },
+              };
+              console.log(payload);
 
-            try{
+              // Login Auth
+              const response = await axios.post(
+                'https://limo-app-server.loca.lt/api/auth',
+                payload
+              );
+              if (response.status === 401) {
+                console.log('Invalid credentials');
+              }
+              if (response.status === 200) {
+                console.log('Logged in successfully');
 
-            const payload = {
-              user: {
-                email: values.email,
-                password: values.password,
-              },
-            };
-            console.log(payload);
+                // Actual auth work here....
+                //
+                // LocalStorage
+                // The authorization header is what we need to
+                //   save and send back in all future requests
+                // console.log(response.headers.authorization)
+                // localStorage.setItem('auth', response.headers.authorization)
 
-            // Login Auth
-            const response = await axios.post(
-              'https://limo-app-server.loca.lt/api/auth',
-              payload
-            );
-            if (response.status === 401) {
-              console.log('Invalid credentials');
+                // Set a default for axios so all future requests
+                // automatically get that header
+                // If we use this code we don't need the localStorage business
+                // since axios will automatically send the header for us.
+                axios.defaults.headers.common['Authorization'] =
+                  response.headers.authorization;
+
+                // When you logout, send the DELETE /api/auth request and
+                // then remove the auth header from axios
+                // axios.defaults.headers.common['Authorization'] = null
+
+                // Later on:
+                //   const auth = localStorage.getItem('auth')
+                //   const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
+
+                // Now we can navigate to the home screen
+                navigation.navigate('Events');
+              }
+            } catch (error) {
+              //ERROR Logic here
             }
-            if (response.status === 200) {
-                console.log('Logged in successfully')
-
-              // Actual auth work here....
-              //
-              // LocalStorage
-              // The authorization header is what we need to
-              //   save and send back in all future requests
-              // console.log(response.headers.authorization)
-              // localStorage.setItem('auth', response.headers.authorization)
-
-              // Set a default for axios so all future requests
-              // automatically get that header
-              // If we use this code we don't need the localStorage business
-              // since axios will automatically send the header for us.
-              axios.defaults.headers.common['Authorization'] =
-                response.headers.authorization;
-
-              // When you logout, send the DELETE /api/auth request and
-              // then remove the auth header from axios
-              // axios.defaults.headers.common['Authorization'] = null
-
-              // Later on:
-              //   const auth = localStorage.getItem('auth')
-              //   const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
-
-              // Now we can navigate to the home screen
-            }
-
-          } catch (error) {
-            //ERROR Logic here 
-            }
-          
-          }
-            }
-
+          }}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <StyledFormArea>
