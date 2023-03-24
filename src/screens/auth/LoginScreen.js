@@ -1,11 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 
 //formik
-import { Formik } from 'formik';
+import { Formik } from 'formik'
 //icons
+
 import { Octicons, Ionicons } from '@expo/vector-icons';
+
 
 import {
   StyledContainer,
@@ -28,6 +31,13 @@ import {
   TextLinkContent,
 } from '../../components/styles';
 import { View } from 'react-native';
+
+
+const JeffSubmit = () => {
+  console.log('Hi')
+}
+
+
 
 //Colors
 const { brand, tertiary } = Colors;
@@ -104,6 +114,7 @@ const LoginScreen = ({ navigation }) => {
                 label='Email Address'
                 icon='mail'
                 placeholder='your@email.com'
+
                 placeholderTextColor={tertiary}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
@@ -115,6 +126,7 @@ const LoginScreen = ({ navigation }) => {
                 label='Password'
                 icon='lock'
                 placeholder='* * * * * * * * * *'
+
                 placeholderTextColor={tertiary}
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
@@ -151,6 +163,7 @@ const MyTextInput = ({
   setHidePassword,
   ...props
 }) => {
+
   return (
     <View>
       <LeftIcon>
@@ -170,5 +183,6 @@ const MyTextInput = ({
     </View>
   );
 };
+
 
 export default LoginScreen;
