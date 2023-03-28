@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Button, View, Text, SafeAreaView, FlatList, StyleSheet, StatusBar } from 'react-native'
+import {
+  Button,
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+  Animated,
+} from 'react-native'
 
 import axios from 'axios'
 
@@ -16,9 +27,11 @@ const EventScreen = ({ navigation }) => {
   }, [])
 
   // Flatlist component
-  const Item = ({ title }) => (
+  const Item = ({ itemList }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
+      <Image style={{ width: 50, height: 50 }} source={{ src: '../../assets/icons/icon-calendar.png' }} />
+      <Text style={styles.title}>{itemList}</Text>
+      <Text style={styles.subtitle}>{itemList}</Text>
     </View>
   )
 
@@ -27,11 +40,11 @@ const EventScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={events}
-        renderItem={({ item: event }) => <Item title={event.mileage} />}
         keyExtractor={item => item.id}
+        renderItem={({ item: event }) => <Item itemList={event.mileage} />}
       />
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
         <View>
           <Text>There are {events.length} events</Text>
         </View>
@@ -43,7 +56,7 @@ const EventScreen = ({ navigation }) => {
 
           <Button title="Vehicles" onPress={() => navigation.navigate('Vehicles')} />
         </SafeAreaView>
-      </View>
+      </View> */}
     </SafeAreaView>
   )
 }
@@ -53,6 +66,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    borderRadius: 10,
   },
   item: {
     backgroundColor: '#8e99a3',
