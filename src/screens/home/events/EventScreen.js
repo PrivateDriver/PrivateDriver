@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native'
-
 import axios from 'axios'
 
 const EventScreen = ({ navigation }) => {
@@ -30,11 +29,11 @@ const EventScreen = ({ navigation }) => {
   const AVATAR_SIZE = 70
 
   // Flatlist component
-  const Item = ({ itemList }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{itemList}</Text>
-    </View>
-  )
+  // const Item = ({ itemList }) => (
+  //   <View style={styles.item}>
+  //     <Text style={styles.title}>{itemList}</Text>
+  //   </View>
+  // )
 
   // Refactor Buttons to BottomTabNavigator
   return (
@@ -42,10 +41,17 @@ const EventScreen = ({ navigation }) => {
       <FlatList
         data={events}
         keyExtractor={item => item.key}
-        renderItem={({ item: event }) => {
+        renderItem={({ item, index }) => {
           return (
-            <View>
-              <Item itemList={event.mileage} />
+            <View style={styles.container}>
+              <View>
+                <Image source={{ uri: '../../assets/icons/icon-calendar.png' }} style={styles.avatar} />
+              </View>
+              <View>
+                <Text style={styles.listHeader}>{item.driver_id}</Text>
+                <Text style={styles.subtitle}>{item.mileage}</Text>
+                <Text style={styles.subtitle}>{item.start_time}</Text>
+              </View>
             </View>
           )
         }}
@@ -71,20 +77,63 @@ const EventScreen = ({ navigation }) => {
 //// Refactor Styles for Flatlist
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    borderRadius: 10,
+    flexDirection: 'row',
   },
+
+  listHeader: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  listHeadline: {
+    color: '#333',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
   item: {
-    backgroundColor: '#8e99a3',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 20,
   },
+
+  avatarContainer: {
+    backgroundColor: '#D9D9D9',
+    borderRadius: 100,
+    height: 89,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  avatar: {
+    height: 55,
+    width: 55,
+    marginRight: 20,
+    marginLeft: 20,
+    backgroundColor: '#000000',
+  },
+
   title: {
-    fontSize: 22,
+    fontWeight: 'bold',
+    fontSize: 24,
+    marginLeft: 20,
+  },
+
+  subtitle: {
+    fontSize: 14,
+    color: '#999',
+    marginLeft: 20,
+  },
+
+  separator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#ccc',
   },
 })
+
 ////
 
 export default EventScreen
