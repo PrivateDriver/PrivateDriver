@@ -1,45 +1,90 @@
-import React, { useEffect, useState } from 'react';
-import { Button, View, Text, SafeAreaView } from 'react-native';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import {
+  Button,
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  StyleSheet,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+  Animated,
+} from 'react-native'
+
+import axios from 'axios'
 
 const EventScreen = ({ navigation }) => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
     async function loadData() {
-      const response = await axios.get(
-        'https://limo-app-server.loca.lt/events'
-      );
-      console.log(response.data);
-      setEvents(response.data);
+      const response = await axios.get('https://limo-app-server.loca.lt/events')
+      console.log(response.data)
+      setEvents(response.data)
     }
-    loadData();
-  }, []);
+    loadData()
+  }, [])
 
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View>
-        <Text>There are {events.length} events</Text>
-      </View>
+  const SPACING = 20
+  const AVATAR_SIZE = 70
 
-      <SafeAreaView>
-        <Button
-          title='Drivers'
-          onPress={() => navigation.navigate('Drivers')}
-        />
-
-        <Button
-          title='Clients'
-          onPress={() => navigation.navigate('Clients')}
-        />
-
-        <Button
-          title='Vehicles'
-          onPress={() => navigation.navigate('Vehicles')}
-        />
-      </SafeAreaView>
+  // Flatlist component
+  const Item = ({ itemList }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{itemList}</Text>
     </View>
-  );
-};
+  )
 
-export default EventScreen;
+  // Refactor Buttons to BottomTabNavigator
+  return (
+    <SafeAreaView>
+      <FlatList
+        data={events}
+        keyExtractor={item => item.key}
+        renderItem={({ item: event }) => {
+          return (
+            <View>
+              <Item itemList={event.mileage} />
+            </View>
+          )
+        }}
+      />
+
+      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+        <View>
+          <Text>There are {events.length} events</Text>
+        </View>
+
+        <SafeAreaView>
+          <Button title="Drivers" onPress={() => navigation.navigate('Drivers')} />
+
+          <Button title="Clients" onPress={() => navigation.navigate('Clients')} />
+
+          <Button title="Vehicles" onPress={() => navigation.navigate('Vehicles')} />
+        </SafeAreaView>
+      </View> */}
+    </SafeAreaView>
+  )
+}
+
+//// Refactor Styles for Flatlist
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+    borderRadius: 10,
+  },
+  item: {
+    backgroundColor: '#8e99a3',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 22,
+  },
+})
+////
+
+export default EventScreen
