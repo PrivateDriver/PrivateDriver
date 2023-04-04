@@ -25,9 +25,6 @@ const EventScreen = ({ navigation }) => {
     loadData()
   }, [])
 
-  const SPACING = 20
-  const AVATAR_SIZE = 70
-
   // Flatlist component
   // const Item = ({ itemList }) => (
   //   <View style={styles.item}>
@@ -45,12 +42,12 @@ const EventScreen = ({ navigation }) => {
           return (
             <View style={styles.container}>
               <View>
-                <Image source={{ uri: '../../assets/icons/icon-calendar.png' }} style={styles.avatar} />
+                <Image source={{ required: '../../assets/icons/icon-calendar.png' }} style={styles.avatar} />
               </View>
               <View>
                 <Text style={styles.listHeader}>{item.driver_id}</Text>
-                <Text style={styles.subtitle}>{item.mileage}</Text>
-                <Text style={styles.subtitle}>{item.start_time}</Text>
+                <Text style={styles.listHeadline}>{item.mileage}</Text>
+                <Text style={styles.listSubtitle}>{item.start_time}</Text>
               </View>
             </View>
           )
@@ -78,18 +75,34 @@ const EventScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    padding: 10,
+    height: 80,
+    borderRadius: 10,
+    margin: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 11 },
+    shadowOpacity: 0.55,
+    shadowRadius: 20,
+    backgroundColor: '#fff',
   },
 
   listHeader: {
-    height: 50,
+    height: 23,
+    fontSize: 22,
+    fontWeight: '500',
+
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   listHeadline: {
-    color: '#333',
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    opacity: 0.7,
+  },
+
+  listSubtitle: {
+    fontSize: 14,
+    opacity: 0.6,
   },
 
   item: {
@@ -108,11 +121,10 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    height: 55,
-    width: 55,
+    height: 60,
+    width: 60,
     marginRight: 20,
-    marginLeft: 20,
-    backgroundColor: '#000000',
+    backgroundColor: '#D9D9D9',
   },
 
   title: {
