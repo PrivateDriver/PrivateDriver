@@ -25,31 +25,47 @@ const EventScreen = ({ navigation }) => {
     loadData()
   }, [])
 
-  // Flatlist component
-  // const Item = ({ itemList }) => (
-  //   <View style={styles.item}>
-  //     <Text style={styles.title}>{itemList}</Text>
-  //   </View>
-  // )
-
   // Refactor Buttons to BottomTabNavigator
+  const scrollY = React.useRef(new Animated.Value(0)).current
+
   return (
     <SafeAreaView>
-      <FlatList
+      <Animated.FlatList
         data={events}
-        keyExtractor={item => item.key}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
+        keyExtractor={item => item.id}
         renderItem={({ item, index }) => {
+          const inputRange = [-1, 0, 80 * index, 80 * (index + 2)]
+          const scale = scrollY.interpolate({
+            inputRange,
+            outputRange: [1, 1, 1, 0],
+          })
           return (
-            <View style={styles.container}>
-              <View>
-                <Image source={{ required: '../../assets/icons/icon-calendar.png' }} style={styles.avatar} />
+            <Animated.View
+              style={{
+                flexDirection: 'row',
+                padding: 10,
+                height: 80,
+                borderRadius: 10,
+                margin: 8,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 11 },
+                shadowOpacity: 0.3,
+                shadowRadius: 20,
+                backgroundColor: '#fff',
+                transform: [{ scale }],
+              }}
+            >
+              <View style={styles.avatar}>
+                <Image source={{ require: '../../assets/icons/icon-calendar.png' }} style={styles.avatar} />
               </View>
+
               <View>
-                <Text style={styles.listHeader}>{item.driver_id}</Text>
+                <Text style={styles.listHeader}>{item.id}</Text>
                 <Text style={styles.listHeadline}>{item.mileage}</Text>
                 <Text style={styles.listSubtitle}>{item.start_time}</Text>
               </View>
-            </View>
+            </Animated.View>
           )
         }}
       />
@@ -81,9 +97,10 @@ const styles = StyleSheet.create({
     margin: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 11 },
-    shadowOpacity: 0.55,
+    shadowOpacity: 0.3,
     shadowRadius: 20,
     backgroundColor: '#fff',
+    transform: [{ scale: 1 }],
   },
 
   listHeader: {
@@ -113,9 +130,9 @@ const styles = StyleSheet.create({
   },
 
   avatarContainer: {
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#000000',
     borderRadius: 100,
-    height: 89,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
