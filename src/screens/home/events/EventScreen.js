@@ -30,51 +30,59 @@ const EventScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <Animated.FlatList
-        data={events}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
-        keyExtractor={item => item.id}
-        renderItem={({ item, index }) => {
-          const inputRange = [-1, 0, 80 * index, 80 * (index + 2)]
-          const opacityInputRange = [-1, 0, 80 * index, 80 * (index + 2)]
-          const scale = scrollY.interpolate({
-            inputRange,
-            outputRange: [1, 1, 1, 0],
-          })
-          const opacity = scrollY.interpolate({
-            inputRange: opacityInputRange,
-            outputRange: [1, 1, 1, 0],
-          })
-          return (
-            <Animated.View
-              style={{
-                flexDirection: 'row',
-                padding: 10,
-                height: 80,
-                borderRadius: 10,
-                margin: 8,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 11 },
-                shadowOpacity: 0.3,
-                shadowRadius: 20,
-                backgroundColor: '#fff',
-                opacity,
-                transform: [{ scale }],
-              }}
-            >
-              <View style={styles.avatar}>
-                <Image source={{ require: '../../assets/icons/icon-calendar.png' }} style={styles.avatar} />
-              </View>
+      <View style={styles.pageContainer}>
+        <View style={styles.topContainer}>
+          <Image
+            source={require('../../../assets/Calendar.png')}
+            style={{ width: undefined, height: '100%', aspectRatio: 1 }}
+          />
+        </View>
+        <Animated.FlatList
+          data={events}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
+          // keyExtractor={item => item.id}
+          renderItem={({ item, index }) => {
+            const inputRange = [-1, 0, 80 * index, 180 * (index + 8)]
+            const opacityInputRange = [-1, 0, 80 * index, 80 * (index + 2)]
+            const scale = scrollY.interpolate({
+              inputRange,
+              outputRange: [1, 1, 1, 0],
+            })
+            const opacity = scrollY.interpolate({
+              inputRange: opacityInputRange,
+              outputRange: [1, 1, 1, 0],
+            })
+            return (
+              <Animated.View
+                style={{
+                  flexDirection: 'row',
+                  padding: 10,
+                  height: 80,
+                  borderRadius: 10,
+                  margin: 3,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 11 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 20,
+                  backgroundColor: '#fff',
+                  opacity,
+                  transform: [{ scale }],
+                }}
+              >
+                <View style={styles.listAvatar}>
+                  <Image source={require('../../../assets/icons/icon-calendar.png')} style={styles.listAvatarImg} />
+                </View>
 
-              <View>
-                <Text style={styles.listHeader}>{item.id}</Text>
-                <Text style={styles.listHeadline}>{item.mileage}</Text>
-                <Text style={styles.listSubtitle}>{item.start_time}</Text>
-              </View>
-            </Animated.View>
-          )
-        }}
-      />
+                <View>
+                  <Text style={styles.listHeader}>{item.id}</Text>
+                  <Text style={styles.listHeadline}>{item.mileage}</Text>
+                  <Text style={styles.listSubtitle}>{item.start_time}</Text>
+                </View>
+              </Animated.View>
+            )
+          }}
+        />
+      </View>
 
       {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
         <View>
@@ -95,25 +103,40 @@ const EventScreen = ({ navigation }) => {
 
 //// Refactor Styles for Flatlist
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    padding: 10,
-    height: 80,
-    borderRadius: 10,
-    margin: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 11 },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    backgroundColor: '#fff',
-    transform: [{ scale: 1 }],
+  pageContainer: {
+    backgroundColor: '#000',
+    height: '100%',
   },
+
+  topContainer: {
+    height: '45%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+
+  // container: {
+  //   flexDirection: 'row',
+  //   padding: 10,
+  //   height: 80,
+  //   borderRadius: 10,
+  //   margin: 8,
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 11 },
+  //   shadowOpacity: 0.3,
+  //   shadowRadius: 20,
+  //   backgroundColor: '#fff',
+  //   transform: [{ scale: 1 }],
+  // },
 
   listHeader: {
     height: 23,
     fontSize: 22,
     fontWeight: '500',
-
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -132,41 +155,46 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 20,
+    paddingVertical: 0,
   },
 
   avatarContainer: {
-    backgroundColor: '#000000',
     borderRadius: 100,
     height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 50,
   },
 
-  avatar: {
-    height: 60,
-    width: 60,
+  listAvatar: {
+    height: 40,
+    width: 40,
     marginRight: 20,
-    backgroundColor: '#D9D9D9',
+    alignSelf: 'center',
   },
 
-  title: {
-    fontWeight: 'bold',
-    fontSize: 24,
-    marginLeft: 20,
+  listAvatarImg: {
+    height: 40,
+    width: 40,
+    margin: 'auto',
+    display: 'block',
   },
 
-  subtitle: {
-    fontSize: 14,
-    color: '#999',
-    marginLeft: 20,
-  },
+  // title: {
+  //   fontWeight: 'bold',
+  //   fontSize: 24,
+  //   marginLeft: 20,
+  // },
 
-  separator: {
-    height: 1,
-    width: '100%',
-    backgroundColor: '#ccc',
-  },
+  // subtitle: {
+  //   fontSize: 14,
+  //   color: '#999',
+  //   marginLeft: 20,
+  // },
+
+  // separator: {
+  //   height: 1,
+  //   width: '100%',
+  //   backgroundColor: '#ccc',
+  // },
 })
 
 ////
