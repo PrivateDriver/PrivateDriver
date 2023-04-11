@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Button,
-  View,
-  Text,
-  SafeAreaView,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  Animated,
-} from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Image, Animated } from 'react-native'
 import axios from 'axios'
 
-const EventScreen = ({ navigation }) => {
+const EventScreen = () => {
   const [events, setEvents] = useState([])
 
   useEffect(() => {
@@ -40,7 +29,6 @@ const EventScreen = ({ navigation }) => {
         <Animated.FlatList
           data={events}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
-          // keyExtractor={item => item.id}
           renderItem={({ item, index }) => {
             const inputRange = [-1, 0, 80 * index, 180 * (index + 8)]
             const opacityInputRange = [-1, 0, 80 * index, 80 * (index + 2)]
@@ -119,20 +107,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  // container: {
-  //   flexDirection: 'row',
-  //   padding: 10,
-  //   height: 80,
-  //   borderRadius: 10,
-  //   margin: 8,
-  //   shadowColor: '#000',
-  //   shadowOffset: { width: 0, height: 11 },
-  //   shadowOpacity: 0.3,
-  //   shadowRadius: 20,
-  //   backgroundColor: '#fff',
-  //   transform: [{ scale: 1 }],
-  // },
-
   listHeader: {
     height: 23,
     fontSize: 22,
@@ -151,19 +125,6 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
 
-  item: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 0,
-  },
-
-  avatarContainer: {
-    borderRadius: 100,
-    height: 50,
-    width: 50,
-  },
-
   listAvatar: {
     height: 40,
     width: 40,
@@ -177,24 +138,6 @@ const styles = StyleSheet.create({
     margin: 'auto',
     display: 'block',
   },
-
-  // title: {
-  //   fontWeight: 'bold',
-  //   fontSize: 24,
-  //   marginLeft: 20,
-  // },
-
-  // subtitle: {
-  //   fontSize: 14,
-  //   color: '#999',
-  //   marginLeft: 20,
-  // },
-
-  // separator: {
-  //   height: 1,
-  //   width: '100%',
-  //   backgroundColor: '#ccc',
-  // },
 })
 
 ////
