@@ -1,66 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import React, { useEffect, useState } from 'react'
+import { View, Text, SafeAreaView, StyleSheet, Image, Animated } from 'react-native'
+import axios from 'axios'
 
-const Vehicles = () => {
-  const [data, setData] = useState([]);
+const VehicleScreen = () => {
+  const [vehicles, setVehicles] = useState([])
 
   useEffect(() => {
-    fetch('https://limo-app-server.loca.lt/vehicles.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setData((s) => ([...s, ...data]));
-      })
-      .catch((error) => {
-        console.error(error)
-      });
+    async function loadData() {
+      const response = await axios.get('https://limo-app-server.loca.lt/vehicles')
+      console.log(response.data)
+      setVehicles(response.data)
+    }
+    loadData()
   }, [])
 
+  const scrollY = React.useRef(new Animated.Value(0)).current
+
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <Text style={styles.text}>PrivateDriver.io</Text>
-        {data.map(v =>
-          <View key={v["id"]}>
-            <Text style={styles.text}>Vehicle</Text>
-            <Text style={{
-              margin: 10,
-              fontSize: 16
-            }}>{'Make ' + v["make"]}</Text>
-            <Text style={{
-              margin: 10,
-              fontSize: 16
-            }}>{'Model ' + v['model']}</Text>
-          </View>
-        )}
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </View>
+    <SafeAreaView>
+      <View style={styles.pageContainer}>
+        <View style={styles.topContainer}>
+          <Image
+            source={require('../../../assets/Sprinter.png')}
+            style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+          />
+        </View>
+        <Animated.FlatList
+          data={vehicles}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
+          renderItem={({ item, index }) => {
+            const inputRange = [-1, 0, 80 * index, 180 * (index + 8)]
+            const opacityInputRange = [-1, 0, 80 * index, 80 * (index + 2)]
+            const scale = scrollY.interpolate({
+              inputRange,
+              outputRange: [1, 1, 1, 0],
+            })
+            const opacity = scrollY.interpolate({
+              inputRange: opacityInputRange,
+              outputRange: [1, 1, 1, 0],
+            })
+            return (
+              <Animated.View
+                style={{
+                  flexDirection: 'row',
+                  padding: 10,
+                  height: 80,
+                  borderRadius: 10,
+                  margin: 3,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 11 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 20,
+                  backgroundColor: '#fff',
+                  opacity,
+                  transform: [{ scale }],
+                }}
+              >
+                <View style={styles.listAvatar}>
+                  <Image source={require('../../../assets/Sprinter.png')} style={styles.listAvatarImg} />
+                </View>
+
+                <View>
+                  <Text style={styles.listHeader}>
+                    {item.make} {item.model} {item.year}
+                  </Text>
+                  <Text style={styles.listHeadline}>Seating Capicity: {item.seating_capacity}</Text>
+                  <Text style={styles.listSubtitle}>{item.id}</Text>
+                </View>
+              </Animated.View>
+            )
+          }}
+        />
+      </View>
+    </SafeAreaView>
   )
 }
-
-export default Vehicles;
-
-
+//// Refactor Styles for Flatlist
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  pageContainer: {
+    backgroundColor: '#000',
+    height: '100%',
+  },
+
+  topContainer: {
+    height: '45%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+
+  listHeader: {
+    height: 23,
+    fontSize: 22,
+    fontWeight: '500',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    color: '#888',
-    fontSize: 28,
-    marginBottom: 20,
+
+  listHeadline: {
+    fontSize: 18,
+    opacity: 0.7,
   },
-  button: {
-    backgroundColor: "gray",
-    padding: 15,
-    borderRadius: 5,
+
+  listSubtitle: {
+    fontSize: 14,
+    opacity: 0.6,
   },
-  buttonText: {
-    fontSize: 20,
-    color: '#fff',
+
+  listAvatar: {
+    height: 40,
+    width: 40,
+    marginRight: 20,
+    alignSelf: 'center',
   },
-});
+
+  listAvatarImg: {
+    height: 40,
+    width: 40,
+    margin: 'auto',
+    display: 'block',
+  },
+})
+
+export default VehicleScreen

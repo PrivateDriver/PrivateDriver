@@ -62,7 +62,7 @@ const EventScreen = () => {
                 </View>
 
                 <View>
-                  <Text style={styles.listHeader}>{item.id}</Text>
+                  <Text style={styles.listHeader}>{item.company_id}</Text>
                   <Text style={styles.listHeadline}>{item.mileage}</Text>
                   <Text style={styles.listSubtitle}>{item.start_time}</Text>
                 </View>
