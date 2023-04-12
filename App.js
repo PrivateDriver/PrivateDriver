@@ -1,16 +1,14 @@
-import React from 'react';
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react'
+import 'react-native-gesture-handler'
+import { NavigationContainer } from '@react-navigation/native'
 
-import AuthNavigator from './src/navigations/AuthNavigator';
+import AuthNavigator from './src/navigations/AuthNavigator'
+import BottomTabNavigator from './src/navigations/BottomTabNavigator'
 
 export default function App() {
-  return (    
-      <NavigationContainer> 
-        <AuthNavigator />
-      </NavigationContainer>
-
-  );
+  return (
+    <NavigationContainer>
+      <BottomTabNavigator />
+    </NavigationContainer>
+  )
 }
-
-
