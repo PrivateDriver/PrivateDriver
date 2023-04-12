@@ -89,7 +89,7 @@ const LoginScreen = ({ navigation }) => {
                 //   const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
 
                 // Now we can navigate to the home screen
-                navigation.navigate('Vehicles')
+                navigation.navigate('Events')
               }
             } catch (error) {
               //ERROR Logic here
