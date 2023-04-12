@@ -8,6 +8,7 @@ import BottomTabNavigator from './src/navigations/BottomTabNavigator'
 export default function App() {
   return (
     <NavigationContainer>
+      {/* <AuthNavigator /> */}
       <BottomTabNavigator />
     </NavigationContainer>
   )

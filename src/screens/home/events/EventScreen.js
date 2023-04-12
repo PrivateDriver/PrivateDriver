@@ -52,7 +52,7 @@ const EventScreen = () => {
                   shadowOffset: { width: 0, height: 11 },
                   shadowOpacity: 0.3,
                   shadowRadius: 20,
-                  backgroundColor: '#fff',
+                  backgroundColor: '#de8d1a',
                   opacity,
                   transform: [{ scale }],
                 }}
