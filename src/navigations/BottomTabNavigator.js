@@ -5,6 +5,7 @@ import { Colors } from '../components/styles'
 import { Home, Events, Drivers, Vehicles, Clients } from '../screens'
 
 const Tab = createBottomTabNavigator()
+const { brand, tertiary, darkLight } = Colors
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
@@ -15,17 +16,16 @@ const CustomTabBarButton = ({ children, onPress }) => (
     }}
     onPress={onPress}
   >
-    <View style={{ width: 70, height: 70, borderRadius: 35, backgroundColor: darkLight }}>{children}</View>
+    <View style={styles.centerOffsetButton}>{children}</View>
   </TouchableOpacity>
 )
-const { brand, tertiary, darkLight } = Colors
 
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        // tabBarShowLabel: false,
+        tabBarShowLabel: false,
         tabBarStyle: styles.tabBarStyle,
         tabBarActiveTintColor: brand,
         tabBarInactiveTintColor: tertiary,
@@ -38,7 +38,6 @@ const BottomTabNavigator = () => {
             Driver: 'md-person-sharp',
             Client: 'md-people-sharp',
             Vehicle: 'md-car-sport-sharp',
-            Plus: 'md-add-circle-sharp',
           }
 
           return <Icon name={icons[route.name]} size={25} color={color} />
@@ -53,8 +52,8 @@ const BottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: -3 }}>
-              <Icon name="md-add-circle-sharp" size={75} color={focused ? brand : tertiary} />
+            <View style={styles.tabIconOffset}>
+              <Icon name="md-add-circle-sharp" size={75} color={(focused = brand)} />
             </View>
           ),
 
@@ -82,24 +81,32 @@ const styles = StyleSheet.create({
   },
 
   shadow: {
-    shadowColor: '#7F5DF0',
+    shadowColor: '#333333',
     shadowOffset: {
       width: 0,
-      height: 10,
+      height: 9,
     },
 
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.3,
     shadowRadius: 3.5,
     elevation: 5,
   },
 
-  button: {
+  centerOffsetButton: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 70,
     height: 70,
     borderRadius: 35,
     backgroundColor: '#fff',
+
+    backgroundColor: darkLight,
+  },
+
+  tabIconOffset: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: -4,
   },
 })
 
