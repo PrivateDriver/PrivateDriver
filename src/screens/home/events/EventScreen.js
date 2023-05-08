@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, Image, Animated } from 'react-native'
 import axios from 'axios'
+import { Colors } from '../../../components/styles'
+
+const { brand, tertiary, lightGray } = Colors
 
 const EventScreen = () => {
   const [events, setEvents] = useState([])
@@ -52,7 +55,7 @@ const EventScreen = () => {
                   shadowOffset: { width: 0, height: 11 },
                   shadowOpacity: 0.3,
                   shadowRadius: 20,
-                  backgroundColor: '#fff',
+                  backgroundColor: lightGray,
                   opacity,
                   transform: [{ scale }],
                 }}
@@ -71,20 +74,6 @@ const EventScreen = () => {
           }}
         />
       </View>
-
-      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
-        <View>
-          <Text>There are {events.length} events</Text>
-        </View>
-
-        <SafeAreaView>
-          <Button title="Drivers" onPress={() => navigation.navigate('Drivers')} />
-
-          <Button title="Clients" onPress={() => navigation.navigate('Clients')} />
-
-          <Button title="Vehicles" onPress={() => navigation.navigate('Vehicles')} />
-        </SafeAreaView>
-      </View> */}
     </SafeAreaView>
   )
 }
@@ -109,19 +98,19 @@ const styles = StyleSheet.create({
 
   listHeader: {
     height: 23,
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: '500',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   listHeadline: {
-    fontSize: 18,
+    fontSize: 14,
     opacity: 0.7,
   },
 
   listSubtitle: {
-    fontSize: 14,
+    fontSize: 12,
     opacity: 0.6,
   },
 
