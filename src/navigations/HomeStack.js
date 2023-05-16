@@ -6,6 +6,7 @@ const Stack = createNativeStackNavigator()
 function HomeStack() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
       <Stack.Screen name="Event" component={Events} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Client" component={Clients} />
