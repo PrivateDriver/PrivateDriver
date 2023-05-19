@@ -2,18 +2,19 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import { Events, Drivers, Vehicles, Clients } from '../screens'
 import BottomTabNavigator from './BottomTabNavigator'
+import { Colors } from '../components/styles'
+import CustomDrawer from '../components/CustomDrawer'
+
+const { brand, tertiary, secondary } = Colors
 
 const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
   return (
     <Drawer.Navigator
+      drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerShown: false,
-        drawerStyle: {
-          backgroundColor: '#c6cbef',
-          width: 240,
-        },
       }}
     >
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
