@@ -6,6 +6,7 @@ import { Home, Events, Drivers, Vehicles, Clients } from '../screens'
 
 const Tab = createBottomTabNavigator()
 const { brand, tertiary, darkLight } = Colors
+
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
