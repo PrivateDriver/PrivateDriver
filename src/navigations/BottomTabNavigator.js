@@ -3,9 +3,11 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../components/styles'
 import { Home, Events, Drivers, Vehicles, Clients } from '../screens'
+import { useNavigation } from '@react-navigation/native'
 
 const Tab = createBottomTabNavigator()
 const { brand, tertiary, darkLight } = Colors
+
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
@@ -21,10 +23,11 @@ const CustomTabBarButton = ({ children, onPress }) => (
 )
 
 const BottomTabNavigator = () => {
+  const navigation = useNavigation()
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerShown: false,
+        headerShown: true,
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBarStyle,
         tabBarActiveTintColor: brand,
@@ -45,12 +48,56 @@ const BottomTabNavigator = () => {
       })}
     >
       {/* <Tab.Screen name="Home" component={Home} /> */}
-      <Tab.Screen name="Event" component={Events} />
-      <Tab.Screen name="Driver" component={Drivers} />
+      <Tab.Screen
+        name="Event"
+        component={Events}
+        options={{
+          title: 'Events',
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <View>
+                  <Icon name="menu" size={30} color="black" style={{ marginLeft: 20 }} />
+                </View>
+              </TouchableOpacity>
+            )
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Driver"
+        component={Drivers}
+        options={{
+          title: 'Driver',
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <View>
+                  <Icon name="menu" size={30} color="black" style={{ marginLeft: 20 }} />
+                </View>
+              </TouchableOpacity>
+            )
+          },
+        }}
+      />
       <Tab.Screen
         name="Plus"
         component={Home}
         options={{
+          title: '',
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <View>
+                  <Icon name="menu" size={30} color="black" style={{ marginLeft: 20 }} />
+                </View>
+              </TouchableOpacity>
+            )
+          },
+
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconOffset}>
               <Icon name="md-add-circle-sharp" size={75} color={(focused = brand)} />
@@ -60,8 +107,40 @@ const BottomTabNavigator = () => {
           tabBarButton: props => <CustomTabBarButton {...props} />,
         }}
       />
-      <Tab.Screen name="Client" component={Clients} />
-      <Tab.Screen name="Vehicle" component={Vehicles} />
+      <Tab.Screen
+        name="Client"
+        component={Clients}
+        options={{
+          title: 'Client',
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <View>
+                  <Icon name="menu" size={30} color="black" style={{ marginLeft: 20 }} />
+                </View>
+              </TouchableOpacity>
+            )
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Vehicle"
+        component={Vehicles}
+        options={{
+          title: 'Vehicle',
+          headerShown: true,
+          headerLeft: () => {
+            return (
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <View>
+                  <Icon name="menu" size={30} color="black" style={{ marginLeft: 20 }} />
+                </View>
+              </TouchableOpacity>
+            )
+          },
+        }}
+      />
     </Tab.Navigator>
   )
 }

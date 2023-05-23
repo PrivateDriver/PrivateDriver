@@ -36,14 +36,6 @@ export const PageLogo = styled.Image`
   height: 150px;
 `
 
-// export const PageTitle = styled.Text`
-// font-size: 30px;
-// text-align: center;
-// font-weight: bold;
-// color: ${brand};
-// padding: 10px;
-// `;
-
 export const SubTitle = styled.Text`
   font-size: 18px;
   margin-bottom: 20px;
@@ -142,5 +134,4 @@ export const TextLinkContent = styled.Text`
   color: ${brand};
   font-size: 15px;
 `
-
 // End Login

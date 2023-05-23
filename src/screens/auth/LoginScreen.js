@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import axios from 'axios'
 
@@ -29,10 +29,6 @@ import {
   TextLinkContent,
 } from '../../components/styles'
 import { View } from 'react-native'
-
-const JeffSubmit = () => {
-  console.log('Hi')
-}
 
 //Colors
 const { brand, tertiary } = Colors
@@ -130,7 +126,20 @@ const LoginScreen = ({ navigation }) => {
               <ExtraView>
                 <ExtraText>Add another account to member profile?</ExtraText>
                 <TextLink>
-                  <TextLinkContent> Signup</TextLinkContent>
+                  <TextLinkContent
+                    onPress={() => {
+                      navigation.navigate('Signup')
+                    }}
+                  >
+                    Signup
+                  </TextLinkContent>
+                  <TextLinkContent
+                    onPress={() => {
+                      navigation.navigate('ForgotPassword')
+                    }}
+                  >
+                    Forgot Password
+                  </TextLinkContent>
                 </TextLink>
               </ExtraView>
             </StyledFormArea>
