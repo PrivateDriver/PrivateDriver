@@ -1,5 +1,5 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
-
+import { View, Text, SafeAreaView, StyleSheet, Image, Animated } from 'react-native'
 import { Events, Drivers, Vehicles, Clients } from '../screens'
 import BottomTabNavigator from './BottomTabNavigator'
 import { Colors } from '../components/styles'
