@@ -1,7 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { NavigationContainer } from '@react-navigation/native'
-import { View, Text, SafeAreaView, StyleSheet, Image, Animated } from 'react-native'
-import { Events, Drivers, Vehicles, Clients } from '../screens'
+// import { View, Text, SafeAreaView, Flatlist, Image,  } from 'react-native'
+import { ClientProfile, DriverProfile, VehicleProfile } from '../screens'
 import BottomTabNavigator from './BottomTabNavigator'
 import { Colors } from '../components/styles'
 import CustomDrawer from '../components/CustomDrawer'
@@ -26,10 +25,9 @@ const DrawerNavigator = () => {
       }}
     >
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
-      <Drawer.Screen name="Event" component={Events} />
-      <Drawer.Screen name="Client" component={Clients} />
-      <Drawer.Screen name="Driver" component={Drivers} />
-      <Drawer.Screen name="Vehicle" component={Vehicles} />
+      <Drawer.Screen name="ClientProfile" component={ClientProfile} />
+      <Drawer.Screen name="DriverProfile" component={DriverProfile} />
+      <Drawer.Screen name="VehicleProfile" component={VehicleProfile} />
     </Drawer.Navigator>
   )
 }
