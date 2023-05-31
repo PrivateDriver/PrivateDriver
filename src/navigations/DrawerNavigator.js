@@ -7,16 +7,15 @@ import CustomDrawer from '../components/CustomDrawer'
 
 const { brand, tertiary, secondary } = Colors
 
-const data = [
-  { id: '1', name: 'Item 1' },
-  { id: '2', name: 'Item 2' },
-  { id: '3', name: 'Item 3' },
-  // Add more items as needed
-]
-
 const Drawer = createDrawerNavigator()
 
 const DrawerNavigator = () => {
+  const data = [
+    { id: '1', name: 'Item 1' },
+    { id: '2', name: 'Item 2' },
+    { id: '3', name: 'Item 3' },
+    // Add more items as needed
+  ]
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
