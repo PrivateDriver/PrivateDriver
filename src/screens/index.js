@@ -7,3 +7,7 @@ export { default as Vehicles } from './home/vehicles/VehicleScreen'
 export { default as Login } from './auth/LoginScreen'
 export { default as Signup } from './auth/SignupScreen'
 export { default as ForgotPassword } from './auth/ForgotPassword'
+//Profile Screens
+export { default as ClientProfile } from './home/clients/ClientProfile'
+export { default as DriverProfile } from './home/drivers/DriverProfile'
+export { default as VehicleProfile } from './home/vehicles/VehicleProfile'
