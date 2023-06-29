@@ -11,3 +11,6 @@ export { default as ForgotPassword } from './auth/ForgotPassword'
 export { default as ClientProfile } from './home/clients/ClientProfile'
 export { default as DriverProfile } from './home/drivers/DriverProfile'
 export { default as VehicleProfile } from './home/vehicles/VehicleProfile'
+// Checking Vehicle Screens
+// export { default as CheckOut } from './home/vehicles/CheckOut'
+// export { default as CheckIn } from './home/vehicles/CheckIn'
