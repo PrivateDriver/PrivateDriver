@@ -2,8 +2,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../components/styles'
-import { Home, Events, Drivers, Vehicles, Clients } from '../screens'
+import { Home, Events, Drivers, Vehicles, Clients, CheckOut } from '../screens'
 import { useNavigation } from '@react-navigation/native'
+import HomeStackNavigator from './HomeStackNavigator'
 
 const Tab = createBottomTabNavigator()
 const { brand, tertiary, darkLight } = Colors
@@ -26,7 +27,7 @@ const BottomTabNavigator = () => {
   const navigation = useNavigation()
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route, navigation }) => ({
         headerShown: true,
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBarStyle,
@@ -47,7 +48,14 @@ const BottomTabNavigator = () => {
         },
       })}
     >
-      {/* <Tab.Screen name="Home" component={Home} /> */}
+      {/* <Tab.Screen
+        name="HomeStack"
+        component={HomeStackNavigator}
+        options={{
+          title: '',
+          headerShown: false,
+        }}
+      /> */}
       <Tab.Screen
         name="Event"
         component={Events}
@@ -84,19 +92,10 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Plus"
-        component={Home}
+        component={HomeStackNavigator}
         options={{
           title: '',
           headerShown: true,
-          headerLeft: () => {
-            return (
-              <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                <View>
-                  <Icon name="menu" size={30} color="black" style={{ marginLeft: 20 }} />
-                </View>
-              </TouchableOpacity>
-            )
-          },
 
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconOffset}>
