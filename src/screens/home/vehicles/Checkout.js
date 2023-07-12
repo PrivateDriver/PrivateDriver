@@ -1,15 +1,23 @@
 import React from 'react'
+import { StatusBar } from 'expo-status-bar'
 import { Button, View, SafeAreaView } from 'react-native'
+import { Formik } from 'formik'
+import {
+  StyledContainerCheckout,
+  StyledInput,
+  StyledButton,
+  ButtonText,
+  StyledFormArea,
+  SubTitle,
+} from '../../../components/styles'
 
 const CheckOut = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <SafeAreaView>
-        <Button title="Events" onPress={() => navigation.navigate('Events')} />
-
-        <Button title="Vehicles" onPress={() => navigation.navigate('Vehicles')} />
-      </SafeAreaView>
-    </View>
+    <SafeAreaView>
+      <StyledContainerCheckout>
+        <SubTitle>Mileage</SubTitle>
+      </StyledContainerCheckout>
+    </SafeAreaView>
   )
 }
 

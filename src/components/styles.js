@@ -135,3 +135,13 @@ export const TextLinkContent = styled.Text`
   font-size: 15px;
 `
 // End Login
+// Checkout Styles
+
+export const StyledContainerCheckout = styled.View`
+  ${'' /* flex: 1; */}
+  padding: 10px;
+  padding-top: 30px;
+  background-color: white;
+  align-items: left;
+  justify-content: left;
+`
