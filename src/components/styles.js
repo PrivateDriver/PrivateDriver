@@ -145,3 +145,13 @@ export const StyledContainerCheckout = styled.View`
   align-items: left;
   justify-content: left;
 `
+export const SubTitleCheckout = styled.Text`
+  font-size: 18px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  color: ${darkLight};
+`
+export const StyledFormAreaCheckout = styled.View`
+  ${'' /* margin: 10px; */}
+  align-items: left;
+`
