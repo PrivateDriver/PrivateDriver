@@ -152,6 +152,10 @@ export const SubTitleCheckout = styled.Text`
   color: ${darkLight};
 `
 export const StyledFormAreaCheckout = styled.View`
-  ${'' /* margin: 10px; */}
-  align-items: left;
+  width: 90%;
+`
+export const MileageDiv = styled.View`
+  flex-direction: row;
+  width: 90%;
+  background-color: ${brand};
 `
