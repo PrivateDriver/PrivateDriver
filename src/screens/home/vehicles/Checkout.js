@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View, SafeAreaView } from 'react-native'
+import { Button, View, SafeAreaView, TextInput } from 'react-native'
 import { Checkbox, TextInput as PaperTextInput } from 'react-native-paper'
 import { Formik, useFormik, useFormikContext } from 'formik'
 import { StyledContainerCheckout, StyledFormAreaCheckout, MileageDiv } from '../../../components/styles'
@@ -55,9 +55,9 @@ const CheckOut = () => {
                 <MileageDiv>
                   <FormCheckbox name="checked" label="Mileage" />
                   <MileageForm />
+                  <Button onPress={handleSubmit} title="Submit" />
                 </MileageDiv>
               </StyledFormAreaCheckout>
-              <Button onPress={handleSubmit} title="Submit" />
             </View>
           )}
         </Formik>

@@ -1,16 +1,51 @@
 import React from 'react'
-import { Button, View, SafeAreaView } from 'react-native'
+import { View, TextInput, Button } from 'react-native'
+import { useFormik } from 'formik'
+import { Checkbox, TextInput as PaperTextInput } from 'react-native-paper'
+import { useTheme } from 'react-native-paper'
+import { Colors } from 'react-native-paper'
 
-const CheckIn = ({ navigation }) => {
+const { primary, secondary, tertiary, darkLight, brand } = Colors
+
+const CheckInForm = () => {
+  const formik = useFormik({
+    initialValues: {
+      mileage: '',
+      agreement: true,
+    },
+    onSubmit: values => {
+      console.log(values)
+    },
+    // validationSchema: YOUR_VALIDATION_SCHEMA, // Define your validation schema here if needed
+  })
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <SafeAreaView>
-        <Button title="Events" onPress={() => navigation.navigate('Events')} />
+    <View>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Checkbox
+          position="leading"
+          status={formik.values.mileage ? 'checked' : 'unchecked'}
+          onPress={() => formik.setFieldValue('agreement', !formik.values.agreement)}
+        />
+        <PaperTextInput
+          style={{ flex: 1 }}
+          label="Mileage"
+          value={formik.values.mileage}
+          onChangeText={formik.handleChange('mileage')}
+          onBlur={formik.handleBlur('mileage')}
+        />
+      </View>
 
-        <Button title="Vehicles" onPress={() => navigation.navigate('Vehicles')} />
-      </SafeAreaView>
+      <Button title="Submit" onPress={formik.handleSubmit} />
     </View>
   )
 }
 
-export default CheckIn
+export default function CheckIn() {
+  const theme = useTheme()
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', padding: 16 }}>
+      <CheckInForm />
+    </View>
+  )
+}
