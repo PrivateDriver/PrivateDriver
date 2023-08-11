@@ -1,8 +1,18 @@
 import styled from 'styled-components/native'
 import Constants from 'expo-constants'
+import { DefaultTheme } from 'react-native-paper'
 
-// const StatusBarHeight = Constants.statusBarHeight;
-
+export const PaperFormTheme = {
+  ...DefaultTheme,
+  roundness: 15,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#999999',
+    secondary: '#ffffff',
+    accent: '#00cc00',
+    // You can also customize other color properties here
+  },
+}
 // colors
 export const Colors = {
   primary: '#000000',

@@ -1,69 +1,40 @@
 import React from 'react'
-import { Button, View, SafeAreaView, TextInput } from 'react-native'
-import { Checkbox, TextInput as PaperTextInput } from 'react-native-paper'
-import { Formik, useFormik, useFormikContext } from 'formik'
-import { StyledContainerCheckout, StyledFormAreaCheckout, MileageDiv } from '../../../components/styles'
+import { View, Button } from 'react-native'
+import { Formik } from 'formik'
+import { TextInput } from 'react-native-paper'
+import * as yup from 'yup'
 
-const FormCheckbox = ({ name, label }) => {
-  const { values, setFieldValue } = useFormikContext()
+const validationSchema = yup.object().shape({
+  textValue: yup.string().required('This field is required'),
+})
 
-  const handleChange = () => {
-    setFieldValue(name, !values[name])
-  }
-
+const CheckoutForm = () => {
   return (
-    <Checkbox.Item
-      label={label}
-      status={values[name] ? 'checked' : 'unchecked'}
-      onPress={handleChange}
-      position="leading"
-    />
+    <Formik
+      initialValues={{ textValue: '' }}
+      validationSchema={validationSchema}
+      onSubmit={values => {
+        // Handle form submission
+        console.log(values)
+      }}
+    >
+      {({ handleChange, handleSubmit, values, errors, touched }) => (
+        <View>
+          <TextInput
+            label="Text Input"
+            value={values.textValue}
+            onChangeText={handleChange('textValue')}
+            left={
+              <TextInput.Icon name="check" color={touched.textValue && !errors.textValue ? 'green' : 'transparent'} />
+            }
+            error={touched.textValue && !!errors.textValue}
+          />
+          {touched.textValue && errors.textValue && <Text style={{ color: 'red' }}>{errors.textValue}</Text>}
+          <Button title="Submit" onPress={handleSubmit} />
+        </View>
+      )}
+    </Formik>
   )
 }
 
-const MileageForm = () => {
-  const formik = useFormik({
-    initialValues: {
-      mileage: '',
-    },
-    onSubmit: values => {
-      console.log(values)
-    },
-  })
-  return (
-    <View>
-      <PaperTextInput label="Mileage Out" value={formik.values.username} />
-
-      <Button title="Submit" onPress={formik.handleSubmit} />
-    </View>
-  )
-}
-
-const CheckOut = () => {
-  return (
-    <SafeAreaView>
-      <StyledContainerCheckout>
-        <Formik
-          initialValues={{
-            checked: false,
-          }}
-          onSubmit={values => console.log(values)}
-        >
-          {({ handleSubmit }) => (
-            <View>
-              <StyledFormAreaCheckout>
-                <MileageDiv>
-                  <FormCheckbox name="checked" label="Mileage" />
-                  <MileageForm />
-                  <Button onPress={handleSubmit} title="Submit" />
-                </MileageDiv>
-              </StyledFormAreaCheckout>
-            </View>
-          )}
-        </Formik>
-      </StyledContainerCheckout>
-    </SafeAreaView>
-  )
-}
-
-export default CheckOut
+export default CheckoutForm
