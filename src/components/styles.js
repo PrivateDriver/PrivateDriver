@@ -7,7 +7,7 @@ export const PaperFormTheme = {
   roundness: 15,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#999999',
+    primary: '#676767',
     secondary: '#ffffff',
     accent: '#00cc00',
     // You can also customize other color properties here
