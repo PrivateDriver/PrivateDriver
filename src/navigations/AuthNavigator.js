@@ -3,16 +3,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Login, Signup, ForgotPassword } from '../screens'
 import DrawerNavigator from './DrawerNavigator'
 
-const Stack = createNativeStackNavigator()
+const AuthStack = createNativeStackNavigator()
 
 function AuthNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
-      <Stack.Screen name="Signup" options={{ headerShown: false }} component={Signup} />
-      <Stack.Screen name="ForgotPassword" options={{ headerShown: false }} component={ForgotPassword} />
-      <Stack.Screen name="Events" component={DrawerNavigator} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <AuthStack.Navigator initialRouteName="Login">
+      <AuthStack.Screen name="Login" options={{ headerShown: false }} component={Login} />
+      <AuthStack.Screen name="Signup" options={{ headerShown: false }} component={Signup} />
+      <AuthStack.Screen name="ForgotPassword" options={{ headerShown: false }} component={ForgotPassword} />
+      <AuthStack.Screen name="Events" component={DrawerNavigator} options={{ headerShown: false }} />
+    </AuthStack.Navigator>
   )
 }
 

@@ -1,8 +1,18 @@
 import styled from 'styled-components/native'
 import Constants from 'expo-constants'
+import { DefaultTheme } from 'react-native-paper'
 
-// const StatusBarHeight = Constants.statusBarHeight;
-
+export const PaperFormTheme = {
+  ...DefaultTheme,
+  roundness: 15,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#676767',
+    secondary: '#ffffff',
+    accent: '#00cc00',
+    // You can also customize other color properties here
+  },
+}
 // colors
 export const Colors = {
   primary: '#000000',
@@ -135,3 +145,27 @@ export const TextLinkContent = styled.Text`
   font-size: 15px;
 `
 // End Login
+// Checkout Styles
+
+export const StyledContainerCheckout = styled.View`
+  ${'' /* flex: 1; */}
+  padding: 10px;
+  padding-top: 30px;
+  background-color: white;
+  align-items: left;
+  justify-content: left;
+`
+export const SubTitleCheckout = styled.Text`
+  font-size: 18px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  color: ${darkLight};
+`
+export const StyledFormAreaCheckout = styled.View`
+  width: 90%;
+`
+export const MileageDiv = styled.View`
+  flex-direction: row;
+  width: 90%;
+  background-color: ${brand};
+`

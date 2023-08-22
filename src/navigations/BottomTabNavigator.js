@@ -2,8 +2,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../components/styles'
-import { Home, Events, Drivers, Vehicles, Clients } from '../screens'
+import { Events, Drivers, Vehicles, Clients } from '../screens'
 import { useNavigation } from '@react-navigation/native'
+import HomeStackNavigator from './HomeStackNavigator'
 
 const Tab = createBottomTabNavigator()
 const { brand, tertiary, darkLight } = Colors
@@ -47,7 +48,6 @@ const BottomTabNavigator = () => {
         },
       })}
     >
-      {/* <Tab.Screen name="Home" component={Home} /> */}
       <Tab.Screen
         name="Event"
         component={Events}
@@ -84,7 +84,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Plus"
-        component={Home}
+        component={HomeStackNavigator}
         options={{
           title: '',
           headerShown: true,
