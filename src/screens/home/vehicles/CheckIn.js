@@ -1,59 +1,49 @@
 import React from 'react'
 import { View, Button } from 'react-native'
-import { useFormik } from 'formik'
-import { Checkbox, TextInput as PaperTextInput } from 'react-native-paper'
-import { useTheme } from 'react-native-paper'
-import { Colors } from 'react-native-paper'
-import * as yup from 'yup' // Import yup
-import { object, string, number, date, InferType } from 'yup'
+import { Formik } from 'formik'
+import { TextInput, Text, HelperText } from 'react-native-paper'
+import * as yup from 'yup'
 
-const { primary, secondary, tertiary, darkLight, brand } = Colors
-
-// Define the validation schema using yup
 const validationSchema = yup.object().shape({
-  mileage: yup.number().required('Mileage is required').min(0, 'Mileage must be non-negative'),
-  agreement: yup.boolean().oneOf([true], 'You must agree to the terms'),
+  textValue: yup
+    .number('Must be a number type') // Validates for numerical value
+    .positive('Must be a positive value') // Validates against negative values
+    .required('Please enter milage. The field cannot be left blank.') // Sets it as a compulsory field
+    .min(1000, 'Please check milage as it appears on dashboard.'), // Sets a minimum value});
 })
 
-const CheckInForm = () => {
-  const formik = useFormik({
-    initialValues: {
-      mileage: '',
-      agreement: true,
-    },
-    validationSchema, // Use the validation schema here
-    onSubmit: values => {
-      console.log(values)
-    },
-  })
+const CheckinForm = () => {
+  const [isTyping, setIsTyping] = React.useState(false)
 
   return (
-    <View>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Checkbox
-          position="leading"
-          status={formik.values.agreement ? 'checked' : 'unchecked'}
-          onPress={() => formik.setFieldValue('agreement', !formik.values.agreement)}
-        />
-        <PaperTextInput
-          style={{ flex: 1, margin: 8 }}
-          label="Mileage"
-          value={formik.values.mileage}
-          onChangeText={formik.handleChange('mileage')}
-          onBlur={formik.handleBlur('mileage')}
-        />
-      </View>
-      {formik.errors.mileage && <Text style={{ color: 'red' }}>{formik.errors.mileage}</Text>}
-      <Button title="Submit" onPress={formik.handleSubmit} />
-    </View>
+    <Formik
+      initialValues={{ textValue: '' }}
+      validationSchema={validationSchema}
+      onSubmit={values => {
+        // Handle form submission
+        console.log(values)
+      }}
+    >
+      {({ handleChange, handleSubmit, values, errors, touched }) => (
+        <View>
+          <TextInput
+            label="Text Input"
+            value={values.textValue}
+            onChangeText={handleChange('textValue')}
+            onBlur={() => setIsTyping(false)}
+            onFocus={() => setIsTyping(true)}
+            left={<TextInput.Icon name="check" color={isTyping ? 'green' : 'transparent'} />}
+            error={touched.textValue && !!errors.textValue}
+          />
+          <HelperText type="error" visible={touched.textField && errors.textField}>
+            {errors.textField}
+          </HelperText>
+          {touched.textValue && errors.textValue && <Text style={{ color: 'red' }}>{errors.textValue}</Text>}
+          <Button title="Submit" onPress={handleSubmit} />
+        </View>
+      )}
+    </Formik>
   )
 }
 
-export default function CheckIn() {
-  const theme = useTheme()
-  return (
-    <View theme={theme}>
-      <CheckInForm />
-    </View>
-  )
-}
+export default CheckinForm
