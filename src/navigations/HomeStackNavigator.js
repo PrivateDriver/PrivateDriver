@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Home, CheckOut, CheckIn } from '../screens'
+import { Home, CheckoutForm, CheckinForm } from '../screens'
 
 const HomeStack = createNativeStackNavigator()
 
@@ -13,8 +13,8 @@ const HomeStackNavigator = () => {
           headerShown: false,
         }}
       />
-      <HomeStack.Screen name="CheckOut" component={CheckOut} options={{ presentation: 'modal' }} />
-      <HomeStack.Screen name="CheckIn" component={CheckIn} options={{ presentation: 'modal' }} />
+      <HomeStack.Screen name="CheckoutForm" component={CheckoutForm} options={{ presentation: 'modal' }} />
+      <HomeStack.Screen name="CheckinForm" component={CheckinForm} options={{ presentation: 'modal' }} />
     </HomeStack.Navigator>
   )
 }

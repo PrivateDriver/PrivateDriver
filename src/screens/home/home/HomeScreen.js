@@ -8,14 +8,14 @@ const HomeScreen = ({ navigation }) => {
       <Text> HOME SCREEN</Text>
       <StyledButton
         onPress={() => {
-          navigation.navigate('CheckOut')
+          navigation.navigate('CheckoutForm')
         }}
       >
         <ButtonText>Check Out Vehicle</ButtonText>
       </StyledButton>
       <StyledButton
         onPress={() => {
-          navigation.navigate('CheckIn')
+          navigation.navigate('CheckinForm')
         }}
       >
         <ButtonText>Check In Vehicle</ButtonText>
