@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, Image, Animated } from 'react-native'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { PageContainer, TopContainer, BottomContainer, ListContainer, Colors } from '../../../components/styles'
+import {
+  PageContainer,
+  TopContainer,
+  BottomContainer,
+  ListContainer,
+  ListTitle,
+  ListSubtitle,
+  Colors,
+} from '../../../components/styles'
 
 const { darkLight } = Colors
 
@@ -61,14 +69,23 @@ const ClientScreen = () => {
                     transform: [{ scale }],
                   }}
                 >
-                  <Icon name="md-calendar-sharp" size={40} color={darkLight} />
+                  <Icon
+                    name="md-calendar-sharp"
+                    size={40}
+                    color={darkLight}
+                    style={{ marginRight: 20, marginTop: 5, marginLeft: 5 }}
+                  />
 
                   <ListContainer>
-                    <Text>{item.business_name}</Text>
-
-                    <Text>{item.phone_primary}</Text>
-
-                    <Text>{item.email}</Text>
+                    <ListTitle>
+                      <Text>{item.business_name}</Text>
+                    </ListTitle>
+                    <ListSubtitle>
+                      <Text>{item.phone_primary}</Text>
+                    </ListSubtitle>
+                    <ListSubtitle>
+                      <Text>{item.email}</Text>
+                    </ListSubtitle>
                   </ListContainer>
                 </Animated.View>
               )
@@ -79,9 +96,5 @@ const ClientScreen = () => {
     </SafeAreaView>
   )
 }
-
-//// Flatlist list styles
-
-////
 
 export default ClientScreen

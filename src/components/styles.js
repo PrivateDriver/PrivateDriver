@@ -18,7 +18,7 @@ export const Colors = {
   primary: '#000000',
   secondary: '#ffffff',
   tertiary: '#8e99a3',
-  darkLight: '#28292A',
+  darkLight: '#2d3142',
   brand: '#de8d1a',
   lightGray: '#f5f6fa',
 }
@@ -173,13 +173,12 @@ export const MileageDiv = styled.View`
 //// Flatlist tile styles
 
 export const PageContainer = styled.View`
-  background-color: ${primary};
+  background-color: ${tertiary};
   height: 100%;
 `
 export const TopContainer = styled.View`
   display: 'flex';
   flex-direction: 'column';
-  background-color: ${primary};
   align-items: 'top';
   justify-content: 'center';
   overflow: 'hidden';
@@ -188,10 +187,16 @@ export const BottomContainer = styled.View`
   resize-mode: 'cover';
   ${'' /* background-color: ${secondary}; */}
 `
-
 export const ListContainer = styled.View`
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 0px;
   padding-bottom: 5px;
+`
+export const ListTitle = styled.Text`
+  font-size: 20px;
+`
+
+export const ListSubtitle = styled.Text`
+  font-size: 16px;
 `
