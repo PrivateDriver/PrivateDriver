@@ -18,7 +18,7 @@ export const Colors = {
   primary: '#000000',
   secondary: '#ffffff',
   tertiary: '#8e99a3',
-  darkLight: '#333333',
+  darkLight: '#28292A',
   brand: '#de8d1a',
   lightGray: '#f5f6fa',
 }
@@ -129,11 +129,11 @@ export const ExtraView = styled.View`
 `
 
 export const ExtraText = styled.Text`
-        justify-content: center;
-        align-content: center;
-        color: ${tertiary}
-        font-size: 15px;
-    `
+  justify-content: center;
+  align-content: center;
+  color: ${tertiary};
+  font-size: 15px;
+`
 
 export const TextLink = styled.TouchableOpacity`
   justify-content: center;
@@ -148,7 +148,7 @@ export const TextLinkContent = styled.Text`
 // Checkout Styles
 
 export const StyledContainerCheckout = styled.View`
-  ${'' /* flex: 1; */}
+  flex: 1;
   padding: 10px;
   padding-top: 30px;
   background-color: white;
@@ -168,4 +168,30 @@ export const MileageDiv = styled.View`
   flex-direction: row;
   width: 90%;
   background-color: ${brand};
+`
+
+//// Flatlist tile styles
+
+export const PageContainer = styled.View`
+  background-color: ${primary};
+  height: 100%;
+`
+export const TopContainer = styled.View`
+  display: 'flex';
+  flex-direction: 'column';
+  background-color: ${primary};
+  align-items: 'top';
+  justify-content: 'center';
+  overflow: 'hidden';
+`
+export const BottomContainer = styled.View`
+  resize-mode: 'cover';
+  ${'' /* background-color: ${secondary}; */}
+`
+
+export const ListContainer = styled.View`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 5px;
 `
