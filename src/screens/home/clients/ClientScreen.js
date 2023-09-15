@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, Image, Animated } from 'react-native'
+import { Text, SafeAreaView, Image, Animated } from 'react-native'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {
@@ -34,7 +34,11 @@ const ClientScreen = () => {
         <TopContainer>
           <Image
             source={require('../../../assets/Calendar.png')}
-            style={{ width: '100%', height: undefined, aspectRatio: 1, resizeMode: 'cover' }}
+            style={{
+              width: undefined,
+              height: '100%',
+              aspectRatio: 1,
+            }}
           />
         </TopContainer>
         <BottomContainer>

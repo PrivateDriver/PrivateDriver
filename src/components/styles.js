@@ -7,7 +7,7 @@ export const PaperFormTheme = {
   roundness: 15,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#676767',
+    primary: '#000000',
     secondary: '#ffffff',
     accent: '#00cc00',
     // You can also customize other color properties here
@@ -173,15 +173,19 @@ export const MileageDiv = styled.View`
 //// Flatlist tile styles
 
 export const PageContainer = styled.View`
-  background-color: ${tertiary};
+  background-color: ${primary};
   height: 100%;
 `
 export const TopContainer = styled.View`
+  aspect-ratio: 1;
+  height: 45%;
+  width: 100%;
   display: 'flex';
   flex-direction: 'column';
-  align-items: 'top';
+  align-items: 'center';
   justify-content: 'center';
-  overflow: 'hidden';
+
+  ${'' /* overflow: 'hidden'; */}
 `
 export const BottomContainer = styled.View`
   resize-mode: 'cover';
