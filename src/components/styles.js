@@ -7,7 +7,7 @@ export const PaperFormTheme = {
   roundness: 15,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#676767',
+    primary: '#000000',
     secondary: '#ffffff',
     accent: '#00cc00',
     // You can also customize other color properties here
@@ -18,7 +18,7 @@ export const Colors = {
   primary: '#000000',
   secondary: '#ffffff',
   tertiary: '#8e99a3',
-  darkLight: '#333333',
+  darkLight: '#2d3142',
   brand: '#de8d1a',
   lightGray: '#f5f6fa',
 }
@@ -129,11 +129,11 @@ export const ExtraView = styled.View`
 `
 
 export const ExtraText = styled.Text`
-        justify-content: center;
-        align-content: center;
-        color: ${tertiary}
-        font-size: 15px;
-    `
+  justify-content: center;
+  align-content: center;
+  color: ${tertiary};
+  font-size: 15px;
+`
 
 export const TextLink = styled.TouchableOpacity`
   justify-content: center;
@@ -148,7 +148,7 @@ export const TextLinkContent = styled.Text`
 // Checkout Styles
 
 export const StyledContainerCheckout = styled.View`
-  ${'' /* flex: 1; */}
+  flex: 1;
   padding: 10px;
   padding-top: 30px;
   background-color: white;
@@ -168,4 +168,39 @@ export const MileageDiv = styled.View`
   flex-direction: row;
   width: 90%;
   background-color: ${brand};
+`
+
+//// Flatlist tile styles
+
+export const PageContainer = styled.View`
+  background-color: ${primary};
+  height: 100%;
+`
+export const TopContainer = styled.View`
+  aspect-ratio: 1;
+  height: 45%;
+  width: 100%;
+  display: 'flex';
+  flex-direction: 'column';
+  align-items: 'center';
+  justify-content: 'center';
+
+  ${'' /* overflow: 'hidden'; */}
+`
+export const BottomContainer = styled.View`
+  resize-mode: 'cover';
+  ${'' /* background-color: ${secondary}; */}
+`
+export const ListContainer = styled.View`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 5px;
+`
+export const ListTitle = styled.Text`
+  font-size: 20px;
+`
+
+export const ListSubtitle = styled.Text`
+  font-size: 16px;
 `
