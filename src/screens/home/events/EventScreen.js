@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, Image, Animated } from 'react-native'
+import { Text, SafeAreaView, Image, Animated } from 'react-native'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {

@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Home, CheckoutForm, CheckinForm } from '../screens'
+import { Home, CheckoutForm, CheckinForm, CalendarEventScreen } from '../screens'
 
 const HomeStack = createNativeStackNavigator()
 
@@ -15,6 +15,11 @@ const HomeStackNavigator = () => {
       />
       <HomeStack.Screen name="CheckoutForm" component={CheckoutForm} options={{ presentation: 'modal' }} />
       <HomeStack.Screen name="CheckinForm" component={CheckinForm} options={{ presentation: 'modal' }} />
+      <HomeStack.Screen
+        name="CalendarEventScreen"
+        component={CalendarEventScreen}
+        options={{ presentation: 'modal' }}
+      />
     </HomeStack.Navigator>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View, Text, SafeAreaView } from 'react-native'
+import { View, Text } from 'react-native'
 import { StyledButton, ButtonText } from '../../../components/styles'
 
 const HomeScreen = ({ navigation }) => {
@@ -19,6 +19,13 @@ const HomeScreen = ({ navigation }) => {
         }}
       >
         <ButtonText>Check In Vehicle</ButtonText>
+      </StyledButton>
+      <StyledButton
+        onPress={() => {
+          navigation.navigate('CalendarEventScreen')
+        }}
+      >
+        <ButtonText>Calendar</ButtonText>
       </StyledButton>
     </View>
   )
