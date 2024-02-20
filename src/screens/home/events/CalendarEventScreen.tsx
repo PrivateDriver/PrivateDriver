@@ -47,7 +47,7 @@ const CalendarEventScreen: React.FC = () => {
                 alignItems: 'center',
               }}>
               <Text>{item.name}</Text>
-              <Avatar.Text label="J" />
+              <Avatar.Text label="W" />
             </View>
           </Card.Content>
         </Card>
