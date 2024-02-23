@@ -60,7 +60,6 @@ const CalendarEventScreen: React.FC = () => {
       <Agenda
         items={items}
         loadItemsForMonth={loadItems}
-        selected={'2023-05-16'}
         renderItem={renderItem}
       />
     </View>
