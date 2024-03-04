@@ -1,46 +1,32 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import {View, Text, TouchableOpacity} from 'react-native';
-import {Agenda} from 'react-native-calendars';
+import {Agenda, AgendaEntry} from 'react-native-calendars';
 import {Card, Avatar} from 'react-native-paper';
 import { Colors } from '../../../components/styles';
 
-
 const { brand, tertiary, darkLight } = Colors
 
+const CalendarEventScreen = (reservation: AgendaEntry, ) => {
+  const [events, setEvents] = useState({});
 
-const timeToString = (time) => {
-  const date = new Date(time);
-  return date.toISOString().split('T')[0];
-};
+  useEffect(() => {
+    async function loadData() {
+      const response = await axios.get('https://limo-app-server.loca.lt/events')
+      console.log(response.data)
+      setEvents(response.data)
+    }
+    loadData()
+  }, [])
 
-const CalendarEventScreen: React.FC = () => {
-  const [items, setItems] = useState({});
+  interface Event {
+    driver_id: number;
+    company_id: number;
+  }
 
-  const loadItems = (day) => {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!items[strTime]) {
-          items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 2)),
-            });
-          }
-        }
-      }
-      const newItems = {};
-      Object.keys(items).forEach((key) => {
-        newItems[key] = items[key];
-      });
-      setItems(newItems);
-    }, 1000);
-  };
+ 
 
-  const renderItem = (item) => {
+  const renderItem = (event: Event) => {
     return (
       <TouchableOpacity style={{marginRight: 10, marginTop: 17,}}>
         <Card>
@@ -51,7 +37,7 @@ const CalendarEventScreen: React.FC = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <Text>{item.name}</Text>
+              <Text>{event.driver_id}</Text>
               <Avatar.Text label="W" style={{backgroundColor: brand}} />
             </View>
           </Card.Content>
@@ -66,9 +52,10 @@ const CalendarEventScreen: React.FC = () => {
 
   }}>
       <Agenda
-        items={items}
-        loadItemsForMonth={loadItems}
-        renderItem={renderItem}
+        items={events}
+
+        renderItem={CalendarEventScreen}
+       
       />
     </View>
   );
