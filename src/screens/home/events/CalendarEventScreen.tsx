@@ -9,7 +9,7 @@ const timeToString = (time) => {
 };
 
 // Memoized Item component
-const MemoizedItem = React.memo(({ item }: { item: any }) => {
+const CalendarItem = React.memo(({ item }: { item: any }) => {
   return (
     <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
       <Card>
@@ -58,7 +58,7 @@ const CalendarEventScreen: React.FC = () => {
       <Agenda
         items={items}
         loadItemsForMonth={loadItems}
-        renderItem={(item) => <MemoizedItem item={item} />}
+        renderItem={(item) => <CalendarItem item={item} />}
       />
     </View>
   );
