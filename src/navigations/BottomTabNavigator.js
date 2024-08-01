@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../components/styles'
-import { Events, Drivers, Vehicles, Clients } from '../screens'
+import { CalendarEventScreen, Drivers, Vehicles, Clients } from '../screens'
 import { useNavigation } from '@react-navigation/native'
 import HomeStackNavigator from './HomeStackNavigator'
 
@@ -50,9 +50,9 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen
         name="Event"
-        component={Events}
+        component={CalendarEventScreen}
         options={{
-          title: 'Events',
+          title: 'Calendar Events',
           headerShown: true,
           headerLeft: () => {
             return (
