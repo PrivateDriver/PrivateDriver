@@ -1,12 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Alert, StyleSheet } from 'react-native';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { Agenda,
-  Calendar,
-  CalendarProvider,
-  ExpandableCalendar,
- } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
 import CalendarItem from '../../../components/calendar/CalendarItem';
 
 interface Event {
@@ -43,42 +39,26 @@ const CalendarEventScreen: React.FC = () => {
           formattedEvents[date].push(event);
         });
 
-        // Sort the dates
-        const sortedDates = Object.keys(formattedEvents).sort();
-
-        // Set the first event date
-        if (sortedDates.length > 0) {
-          setFirstEventDate(sortedDates[0]);
-        }
-
-        console.log('Formatted Events:', formattedEvents); // Log the formatted events
         setEvents(formattedEvents);
+        setFirstEventDate(Object.keys(formattedEvents)[0]);
       } catch (error) {
         console.error('Error fetching events:', error);
-        Alert.alert('Error', 'Failed to load events. Please try again later.');
+        Alert.alert('Error', 'Failed to fetch events. Please try again later.');
       }
     }
 
-    loadData().catch((error) => {
-      console.error('Unhandled promise rejection:', error);
-    });
+    loadData();
   }, []);
 
-  const handleUpdateEvent = async (updatedEvent: Event) => {
+  const handleUpdateEvent = useCallback(async (updatedEvent: Event) => {
     try {
-      console.log('Updating event:', updatedEvent);
-      await axios.put(`https://limo-app-server.loca.lt/events/${updatedEvent.id}`, updatedEvent);
-      console.log('Event updated successfully');
-
-      // Update the local state
       setEvents((prevEvents) => {
-        const date = updatedEvent.start_time.split('T')[0];
         const updatedEvents = { ...prevEvents };
+        const date = updatedEvent.start_time.split('T')[0];
         if (updatedEvents[date]) {
-          const eventIndex = updatedEvents[date].findIndex(event => event.id === updatedEvent.id);
-          if (eventIndex !== -1) {
-            updatedEvents[date][eventIndex] = updatedEvent;
-          }
+          updatedEvents[date] = updatedEvents[date].map((event) =>
+            event.id === updatedEvent.id ? updatedEvent : event
+          );
         }
         return updatedEvents;
       });
@@ -86,27 +66,24 @@ const CalendarEventScreen: React.FC = () => {
       console.error('Error updating event:', error);
       Alert.alert('Error', 'Failed to update event. Please try again later.');
     }
-  };
-
-  const renderItem = useCallback(({ item }: any) => {
-    return <CalendarItem item={item} onUpdate={handleUpdateEvent} />;
   }, []);
 
   return (
-  
     <View style={styles.container}>
-      
       <Agenda
         items={events}
-        selected={firstEventDate} // Start with the first event date
+        selected={firstEventDate}
         renderItem={(item) => <CalendarItem item={item} onUpdate={handleUpdateEvent} />}
-        renderEmptyDate={() => <View><Text>No Events</Text></View>}
+        renderEmptyDate={() => (
+          <View>
+            <Text>No Events</Text>
+          </View>
+        )}
         rowHasChanged={(r1, r2) => r1.id !== r2.id}
-        pastScrollRange={12} // Allow scrolling to past dates
-        futureScrollRange={12} // Allow scrolling to future dates
+        pastScrollRange={12}
+        futureScrollRange={12}
       />
     </View>
-    
   );
 };
 
