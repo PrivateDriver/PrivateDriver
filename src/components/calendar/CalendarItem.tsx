@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Card, Avatar } from 'react-native-paper';
 import moment from 'moment-timezone';
-import { getLocales } from 'expo-localization';
+import { getLocales, TimeZone } from 'expo-localization'; // Import TimeZone from expo-localization
+import InfoDialog from './InfoDialog'; // Import the InfoDialog component
+
 
 interface Event {
   id: string;
@@ -17,12 +19,18 @@ interface CalendarItemProps {
 }
 
 const CalendarItem: React.FC<CalendarItemProps> = ({ item, onUpdate }) => {
-  const timeZone = getLocales()[0].timezone;
+  const [visible, setVisible] = useState(false); // State for dialog visibility
+
+  const timeZone: TimeZone = getLocales()[0].timezone as TimeZone; // Cast the timezone to TimeZone type
   const zonedDate = moment.tz(item.start_time, timeZone);
   const formattedStartTime = zonedDate.format('MMM D h:mma');
 
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
+
   return (
-    <TouchableOpacity onPress={() => onUpdate(item)}>
+    <View>
+    <TouchableOpacity onPress={showDialog}>
       <Card style={{ marginTop: 10 }}>
         <Card.Content>
           <View
@@ -43,6 +51,13 @@ const CalendarItem: React.FC<CalendarItemProps> = ({ item, onUpdate }) => {
         </Card.Content>
       </Card>
     </TouchableOpacity>
+
+    <InfoDialog
+        visible={visible}
+        hideDialog={hideDialog}
+        info={`Client: ${item.id}\nStart Time: ${formattedStartTime}\nDriver: ${item.driver_id}`}
+      />
+    </View>
   );
 };
 

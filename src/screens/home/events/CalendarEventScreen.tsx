@@ -4,6 +4,9 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { Agenda } from 'react-native-calendars';
 import CalendarItem from '../../../components/calendar/CalendarItem';
+import { Colors } from '../../../components/styles';
+
+const { brand, tertiary } = Colors
 
 interface Event {
   id: string;
@@ -82,6 +85,13 @@ const CalendarEventScreen: React.FC = () => {
         rowHasChanged={(r1, r2) => r1.id !== r2.id}
         pastScrollRange={12}
         futureScrollRange={12}
+        theme={{
+          selectedDayBackgroundColor: brand,
+          agendaDayTextColor: brand,
+          agendaDayNumColor: tertiary,
+          agendaTodayColor: brand,
+          agendaKnobColor: tertiary,
+        }}
       />
     </View>
   );
