@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Card, Avatar } from 'react-native-paper';
 import moment from 'moment-timezone';
-import { getLocales, TimeZone } from 'expo-localization'; // Import TimeZone from expo-localization
+import * as Localization from 'expo-localization'; // Import Localization from expo-localization
 import InfoDialog from './InfoDialog'; // Import the InfoDialog component
 
 
@@ -21,7 +21,7 @@ interface CalendarItemProps {
 const CalendarItem: React.FC<CalendarItemProps> = ({ item, onUpdate }) => {
   const [visible, setVisible] = useState(false); // State for dialog visibility
 
-  const timeZone: TimeZone = getLocales()[0].timezone as TimeZone; // Cast the timezone to TimeZone type
+  const timeZone = Localization.getCalendars()[0].timeZone; // Get the timezone
   const zonedDate = moment.tz(item.start_time, timeZone);
   const formattedStartTime = zonedDate.format('MMM D h:mma');
 

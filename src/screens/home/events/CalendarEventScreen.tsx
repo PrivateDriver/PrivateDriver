@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Alert, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Button, Alert, StyleSheet } from 'react-native';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { Agenda } from 'react-native-calendars';
-import CalendarItem from '../../../components/calendar/CalendarItem';
 import { Colors } from '../../../components/styles';
+import CalendarItem from '../../../components/calendar/CalendarItem'; // Import CalendarItem component
 
-const { brand, tertiary } = Colors
+const { brand, tertiary } = Colors;
 
 interface Event {
   id: string;
@@ -22,6 +22,7 @@ interface Events {
 const CalendarEventScreen: React.FC = () => {
   const [events, setEvents] = useState<Events>({});
   const [firstEventDate, setFirstEventDate] = useState<string | null>(null);
+  const [isFullScreen, setIsFullScreen] = useState(false); // State for isFullScreen
 
   useEffect(() => {
     axiosRetry(axios, { retries: 3 });
@@ -31,67 +32,64 @@ const CalendarEventScreen: React.FC = () => {
         console.log('Fetching events...');
         const response = await axios.get('https://limo-app-server.loca.lt/events');
         console.log('Response received:', response);
-        const data: Event[] = response.data;
-        const formattedEvents: Events = {};
 
-        data.forEach((event) => {
-          const date = event.start_time.split('T')[0]; // Extract the date part from start_time
-          if (!formattedEvents[date]) {
-            formattedEvents[date] = [];
+        if (response.data) {
+          const data: Event[] = response.data;
+          const formattedEvents: Events = {};
+          data.forEach(event => {
+            const date = event.start_time.split('T')[0];
+            if (!formattedEvents[date]) {
+              formattedEvents[date] = [];
+            }
+            formattedEvents[date].push(event);
+          });
+          setEvents(formattedEvents);
+          if (data.length > 0) {
+            setFirstEventDate(data[0].start_time.split('T')[0]);
           }
-          formattedEvents[date].push(event);
-        });
-
-        setEvents(formattedEvents);
-        setFirstEventDate(Object.keys(formattedEvents)[0]);
+        } else {
+          console.error('No data received:', response);
+          Alert.alert('Error', 'No data received from server');
+        }
       } catch (error) {
         console.error('Error fetching events:', error);
-        Alert.alert('Error', 'Failed to fetch events. Please try again later.');
+        Alert.alert('Error', 'Failed to load events');
       }
     }
 
     loadData();
   }, []);
 
-  const handleUpdateEvent = useCallback(async (updatedEvent: Event) => {
-    try {
-      setEvents((prevEvents) => {
-        const updatedEvents = { ...prevEvents };
-        const date = updatedEvent.start_time.split('T')[0];
-        if (updatedEvents[date]) {
-          updatedEvents[date] = updatedEvents[date].map((event) =>
-            event.id === updatedEvent.id ? updatedEvent : event
-          );
-        }
-        return updatedEvents;
-      });
-    } catch (error) {
-      console.error('Error updating event:', error);
-      Alert.alert('Error', 'Failed to update event. Please try again later.');
-    }
-  }, []);
+  // Event handler to toggle isFullScreen state
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
+  };
+
+  // Define the onUpdate function
+  const onUpdate = (updatedEvent: Event) => {
+    // Logic to update the event in the state
+    console.log('Event updated:', updatedEvent);
+  };
 
   return (
     <View style={styles.container}>
+      <Button title={isFullScreen ? "Switch to Weekly" : "Switch to Monthly"} onPress={toggleFullScreen} />
       <Agenda
         items={events}
         selected={firstEventDate}
-        renderItem={(item) => <CalendarItem item={item} onUpdate={handleUpdateEvent} />}
-        renderEmptyDate={() => (
-          <View>
-            <Text>No Events</Text>
-          </View>
-        )}
+        renderItem={(item, firstItemInDay) => <CalendarItem item={item} onUpdate={onUpdate} />}
+        renderEmptyDate={() => <View />}
         rowHasChanged={(r1, r2) => r1.id !== r2.id}
-        pastScrollRange={12}
-        futureScrollRange={12}
         theme={{
-          selectedDayBackgroundColor: brand,
-          agendaDayTextColor: brand,
-          agendaDayNumColor: tertiary,
+          agendaDayTextColor: 'black',
+          agendaDayNumColor: 'black',
           agendaTodayColor: brand,
           agendaKnobColor: tertiary,
         }}
+        showClosingKnob={true}
+        pastScrollRange={12}
+        futureScrollRange={12}
+        hideKnob={!isFullScreen}
       />
     </View>
   );
@@ -100,6 +98,7 @@ const CalendarEventScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
 });
 
