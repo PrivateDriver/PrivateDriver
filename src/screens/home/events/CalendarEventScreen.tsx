@@ -5,6 +5,7 @@ import axiosRetry from 'axios-retry';
 import { Agenda } from 'react-native-calendars';
 import { Colors } from '../../../components/styles';
 import CalendarItem from '../../../components/calendar/CalendarItem'; // Import CalendarItem component
+import { useIsFocused } from '@react-navigation/native'; // Import useIsFocused
 
 const { brand, tertiary } = Colors;
 
@@ -19,10 +20,11 @@ interface Events {
   [date: string]: Event[];
 }
 
-const CalendarEventScreen: React.FC = () => {
+const CalendarEventScreen: React.FC = ({ navigation }) => {
   const [events, setEvents] = useState<Events>({});
   const [firstEventDate, setFirstEventDate] = useState<string | null>(null);
-  const [isFullScreen, setIsFullScreen] = useState(false); // State for isFullScreen
+  const [isMonthlyView, setIsMonthlyView] = useState(false); // State for view mode
+  const isFocused = useIsFocused(); // Check if the screen is focused
 
   useEffect(() => {
     axiosRetry(axios, { retries: 3 });
@@ -60,46 +62,39 @@ const CalendarEventScreen: React.FC = () => {
     loadData();
   }, []);
 
-  // Event handler to toggle isFullScreen state
-  const toggleFullScreen = () => {
-    setIsFullScreen(!isFullScreen);
-  };
+  useEffect(() => {
+    if (isFocused) {
+      navigation.setOptions({ tabBarVisible: !isMonthlyView });
+    }
+  }, [isFocused, isMonthlyView, navigation]);
 
-  // Define the onUpdate function
-  const onUpdate = (updatedEvent: Event) => {
-    // Logic to update the event in the state
-    console.log('Event updated:', updatedEvent);
+  const renderItem = (item: Event) => {
+    return <CalendarItem item={item} onUpdate={(updatedItem) => {
+      // Handle item update
+    }} />;
   };
 
   return (
-    <View style={styles.container}>
-      <Button title={isFullScreen ? "Switch to Weekly" : "Switch to Monthly"} onPress={toggleFullScreen} />
+    <View style={{ flex: 1 }}>
+      
       <Agenda
         items={events}
         selected={firstEventDate}
-        renderItem={(item, firstItemInDay) => <CalendarItem item={item} onUpdate={onUpdate} />}
-        renderEmptyDate={() => <View />}
-        rowHasChanged={(r1, r2) => r1.id !== r2.id}
+        renderItem={renderItem}
         theme={{
-          agendaDayTextColor: 'black',
-          agendaDayNumColor: 'black',
-          agendaTodayColor: brand,
-          agendaKnobColor: tertiary,
+          agendaDayTextColor: brand,
+          agendaDayNumColor: brand,
+          agendaTodayColor: tertiary,
+          agendaKnobColor: brand,
         }}
-        showClosingKnob={true}
-        pastScrollRange={12}
-        futureScrollRange={12}
-        hideKnob={!isFullScreen}
+        showOnlySelectedDayItems={!isMonthlyView}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
+  // Add your styles here
 });
 
 export default CalendarEventScreen;
