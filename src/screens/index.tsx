@@ -1,7 +1,7 @@
 export { default as Home } from './home/home/HomeScreen'
 export { default as Clients } from './home/clients/ClientScreen'
 export { default as Drivers } from './home/drivers/DriverScreen'
-export { default as Events } from './home/events/EventScreen'
+export { default as CalendarEventScreen } from './home/events/CalendarEventScreen'
 export { default as Vehicles } from './home/vehicles/VehicleScreen'
 //Auth Screens
 export { default as Login } from './auth/LoginScreen'
@@ -14,5 +14,4 @@ export { default as VehicleProfile } from './home/vehicles/VehicleProfile'
 // Checking Vehicle Screens
 export { default as CheckoutForm } from './home/vehicles/CheckoutForm'
 export { default as CheckinForm } from './home/vehicles/CheckinForm'
-//Calendar Screens
-export { default as CalendarEventScreen } from './home/events/CalendarEventScreen'
+

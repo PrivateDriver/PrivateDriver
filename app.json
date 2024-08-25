@@ -28,6 +28,9 @@
     },
     "web": {
       "favicon": "./src/assets/icons/privatedriver-favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-localization"
+    ]
   }
 }

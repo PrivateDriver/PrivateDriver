@@ -1,4 +1,9 @@
 {
   "compilerOptions": {},
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "jsx": "react",
+  "include": [
+    "src/**/*",
+    "src/components/styles.tsx"
+  ]
 }

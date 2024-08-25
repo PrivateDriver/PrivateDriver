@@ -1,64 +1,100 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+// CalendarEventScreen.tsx
+import React, { useState, useEffect } from 'react';
+import { View, Alert } from 'react-native';
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import { Agenda } from 'react-native-calendars';
-import { Card, Avatar } from 'react-native-paper';
+import { Colors } from '../../../components/styles';
+import CalendarItem from '../../../components/calendar/CalendarItem';
+import { useIsFocused, NavigationProp } from '@react-navigation/native';
+import { useTabBarVisibility } from '../../../context/TabBarVisibilityContext';
 
-const timeToString = (time) => {
-  const date = new Date(time);
-  return date.toISOString().split('T')[0];
-};
+const { brand, tertiary } = Colors;
 
-// Memoized Item component
-const CalendarItem = React.memo(({ item }: { item: any }) => {
-  return (
-    <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
-      <Card>
-        <Card.Content>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text>{item.name}</Text>
-            <Avatar.Text label="W" />
-          </View>
-        </Card.Content>
-      </Card>
-    </TouchableOpacity>
-  );
-});
+interface Event {
+  id: string;
+  driver_id: string;
+  start_time: string;
+}
 
-const CalendarEventScreen: React.FC = () => {
-  const [items, setItems] = useState({});
+interface Events {
+  [date: string]: Event[];
+}
 
-  const loadItems = (day) => {
-    setTimeout(() => {
-      const newItems = {};
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!newItems[strTime]) {
-          newItems[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            newItems[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
-            });
+interface CalendarEventScreenProps {
+  navigation: NavigationProp<any>;
+}
+
+const CalendarEventScreen: React.FC<CalendarEventScreenProps> = ({ navigation }) => {
+  const [events, setEvents] = useState<Events>({});
+  const [firstEventDate, setFirstEventDate] = useState<string | null>(null);
+  const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
+  const isFocused = useIsFocused();
+  const { setIsTabBarVisible } = useTabBarVisibility();
+
+  useEffect(() => {
+    axiosRetry(axios, { retries: 3 });
+
+    async function loadData() {
+      try {
+        const response = await axios.get('https://limo-app-server.loca.lt/events');
+        if (response.data) {
+          const data: Event[] = response.data;
+          const formattedEvents: Events = {};
+          data.forEach(event => {
+            const date = event.start_time.split('T')[0];
+            if (!formattedEvents[date]) {
+              formattedEvents[date] = [];
+            }
+            formattedEvents[date].push(event);
+          });
+          setEvents(formattedEvents);
+          if (data.length > 0) {
+            setFirstEventDate(data[0].start_time.split('T')[0]);
           }
+        } else {
+          Alert.alert('Error', 'No data received from server');
         }
+      } catch (error) {
+        Alert.alert('Error', 'Failed to load events');
       }
-      setItems(newItems);
-    }, 1000);
+    }
+
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      const parentNavigator = navigation.getParent();
+      if (parentNavigator) {
+        parentNavigator.setOptions({ tabBarStyle: { display: isCalendarExpanded ? 'none' : 'flex' } });
+      }
+    }
+  }, [isFocused, isCalendarExpanded, navigation]);
+
+  const renderItem = (item: Event) => {
+    return <CalendarItem item={item} onUpdate={(updatedItem) => {
+      console.log('Updated item:', updatedItem);
+    }} />;
   };
 
   return (
     <View style={{ flex: 1 }}>
       <Agenda
-        items={items}
-        loadItemsForMonth={loadItems}
-        renderItem={(item) => <CalendarItem item={item} />}
+        items={events}
+        selected={firstEventDate}
+        renderItem={renderItem}
+        theme={{
+          agendaDayTextColor: brand,
+          agendaDayNumColor: brand,
+          agendaTodayColor: tertiary,
+          agendaKnobColor: brand,
+        }}
+        showOnlySelectedDayItems={false}
+        onCalendarToggled={(calendarOpened) => {
+          setIsCalendarExpanded(calendarOpened);
+          setIsTabBarVisible(!calendarOpened);
+        }}
       />
     </View>
   );

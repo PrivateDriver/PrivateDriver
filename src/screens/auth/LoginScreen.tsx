@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import axios from 'axios';
 
-//formik
-import { Formik } from 'formik'
-//icons
-
-import { Octicons, Ionicons } from '@expo/vector-icons'
+// formik
+import { Formik, FormikHelpers } from 'formik';
+// icons
+import { Octicons, Ionicons } from '@expo/vector-icons';
 
 import {
   StyledContainer,
@@ -27,40 +26,50 @@ import {
   ExtraText,
   TextLink,
   TextLinkContent,
-} from '../../components/styles'
-import { View } from 'react-native'
+} from '../../components/styles';
 
-//Colors
-const { brand, tertiary } = Colors
+import { View, TextInputProps } from 'react-native';
 
-const LoginScreen = ({ navigation }) => {
-  const [hidePassword, setHidePassword] = useState(true)
+// Colors
+const { brand, tertiary } = Colors;
+
+interface LoginScreenProps {
+  navigation: any;
+}
+
+interface FormValues {
+  email: string;
+  password: string;
+}
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+  const [hidePassword, setHidePassword] = useState(true);
 
   return (
     <StyledContainer>
-      <StatusBar style="light-dark" />
+      <StatusBar style="light" />
       <InnerContainer>
         <PageLogo resizeMode="contain" source={require('../../assets/icons/privatedriver-logo-app.png')} />
         <SubTitle>Account Login</SubTitle>
         <Formik
           initialValues={{ email: 'me@email.com', password: 'password' }}
-          onSubmit={async values => {
+          onSubmit={async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
             try {
               const payload = {
                 user: {
                   email: values.email,
                   password: values.password,
                 },
-              }
-              console.log(payload)
+              };
+              console.log(payload);
 
               // Login Auth
-              const response = await axios.post('https://limo-app-server.loca.lt/api/auth', payload)
+              const response = await axios.post('https://limo-app-server.loca.lt/api/auth', payload);
               if (response.status === 401) {
-                console.log('Invalid credentials')
+                console.log('Invalid credentials');
               }
               if (response.status === 200) {
-                console.log('Logged in successfully')
+                console.log('Logged in successfully');
 
                 // Actual auth work here....
                 //
@@ -74,7 +83,7 @@ const LoginScreen = ({ navigation }) => {
                 // automatically get that header
                 // If we use this code we don't need the localStorage business
                 // since axios will automatically send the header for us.
-                axios.defaults.headers.common['Authorization'] = response.headers.authorization
+                axios.defaults.headers.common['Authorization'] = response.headers.authorization;
 
                 // When you logout, send the DELETE /api/auth request and
                 // then remove the auth header from axios
@@ -85,10 +94,12 @@ const LoginScreen = ({ navigation }) => {
                 //   const response = await axios.get('https://limo-app-server.loca.lt', { headers: { Authorization: auth } })
 
                 // Now we can navigate to the home screen
-                navigation.navigate('Events')
+                navigation.navigate('Events');
               }
             } catch (error) {
-              //ERROR Logic here
+              // ERROR Logic here
+            } finally {
+              setSubmitting(false);
             }
           }}
         >
@@ -128,14 +139,14 @@ const LoginScreen = ({ navigation }) => {
                 <TextLink>
                   <TextLinkContent
                     onPress={() => {
-                      navigation.navigate('Signup')
+                      navigation.navigate('Signup');
                     }}
                   >
                     Signup
                   </TextLinkContent>
                   <TextLinkContent
                     onPress={() => {
-                      navigation.navigate('ForgotPassword')
+                      navigation.navigate('ForgotPassword');
                     }}
                   >
                     Forgot Password
@@ -147,24 +158,32 @@ const LoginScreen = ({ navigation }) => {
         </Formik>
       </InnerContainer>
     </StyledContainer>
-  )
+  );
+};
+
+interface MyTextInputProps extends TextInputProps {
+  label: string;
+  icon: string;
+  isPassword?: boolean;
+  hidePassword?: boolean;
+  setHidePassword?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
+const MyTextInput: React.FC<MyTextInputProps> = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
   return (
     <View>
       <LeftIcon>
-        <Octicons name={icon} size={30} color={brand} />
+        <Octicons name={icon as keyof typeof Octicons['glyphMap']} size={30} color={brand} />
       </LeftIcon>
       <StyledInputLabel>{label}</StyledInputLabel>
       <StyledTextInput {...props} />
       {isPassword && (
-        <RightIcon onPress={() => setHidePassword(!hidePassword)}>
+        <RightIcon onPress={() => setHidePassword && setHidePassword(!hidePassword)}>
           <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={brand} />
         </RightIcon>
       )}
     </View>
-  )
-}
+  );
+};
 
-export default LoginScreen
+export default LoginScreen;

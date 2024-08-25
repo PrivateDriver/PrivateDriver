@@ -44,7 +44,7 @@ const ClientScreen = () => {
         <BottomContainer>
           <Animated.FlatList
             data={clients}
-            onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
+            // onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
             renderItem={({ item, index }) => {
               const inputRange = [-1, 0, 80 * index, 180 * (index + 8)]
               const opacityInputRange = [-1, 0, 80 * index, 80 * (index + 2)]
