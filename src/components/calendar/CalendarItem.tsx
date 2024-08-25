@@ -18,7 +18,7 @@ interface CalendarItemProps {
   onUpdate: (event: Event) => void;
 }
 
-const CalendarItem: React.FC<CalendarItemProps> = ({ item, onUpdate }) => {
+const CalendarItem: React.FC<CalendarItemProps> = React.memo(({ item, onUpdate }) => {
   const [visible, setVisible] = useState(false); // State for dialog visibility
 
   const timeZone = Localization.getCalendars()[0].timeZone; // Get the timezone
@@ -59,6 +59,6 @@ const CalendarItem: React.FC<CalendarItemProps> = ({ item, onUpdate }) => {
       />
     </View>
   );
-};
+});
 
 export default CalendarItem;

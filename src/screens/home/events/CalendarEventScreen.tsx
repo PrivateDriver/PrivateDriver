@@ -1,11 +1,13 @@
+// CalendarEventScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Button, Alert, StyleSheet } from 'react-native';
+import { View, Alert } from 'react-native';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { Agenda } from 'react-native-calendars';
 import { Colors } from '../../../components/styles';
-import CalendarItem from '../../../components/calendar/CalendarItem'; // Import CalendarItem component
-import { useIsFocused } from '@react-navigation/native'; // Import useIsFocused
+import CalendarItem from '../../../components/calendar/CalendarItem';
+import { useIsFocused, NavigationProp } from '@react-navigation/native';
+import { useTabBarVisibility } from '../../../context/TabBarVisibilityContext';
 
 const { brand, tertiary } = Colors;
 
@@ -13,28 +15,29 @@ interface Event {
   id: string;
   driver_id: string;
   start_time: string;
-  // Add other event properties here
 }
 
 interface Events {
   [date: string]: Event[];
 }
 
-const CalendarEventScreen: React.FC = ({ navigation }) => {
+interface CalendarEventScreenProps {
+  navigation: NavigationProp<any>;
+}
+
+const CalendarEventScreen: React.FC<CalendarEventScreenProps> = ({ navigation }) => {
   const [events, setEvents] = useState<Events>({});
   const [firstEventDate, setFirstEventDate] = useState<string | null>(null);
-  const [isMonthlyView, setIsMonthlyView] = useState(false); // State for view mode
-  const isFocused = useIsFocused(); // Check if the screen is focused
+  const [isCalendarExpanded, setIsCalendarExpanded] = useState(false);
+  const isFocused = useIsFocused();
+  const { setIsTabBarVisible } = useTabBarVisibility();
 
   useEffect(() => {
     axiosRetry(axios, { retries: 3 });
 
     async function loadData() {
       try {
-        console.log('Fetching events...');
         const response = await axios.get('https://limo-app-server.loca.lt/events');
-        console.log('Response received:', response);
-
         if (response.data) {
           const data: Event[] = response.data;
           const formattedEvents: Events = {};
@@ -50,11 +53,9 @@ const CalendarEventScreen: React.FC = ({ navigation }) => {
             setFirstEventDate(data[0].start_time.split('T')[0]);
           }
         } else {
-          console.error('No data received:', response);
           Alert.alert('Error', 'No data received from server');
         }
       } catch (error) {
-        console.error('Error fetching events:', error);
         Alert.alert('Error', 'Failed to load events');
       }
     }
@@ -64,19 +65,21 @@ const CalendarEventScreen: React.FC = ({ navigation }) => {
 
   useEffect(() => {
     if (isFocused) {
-      navigation.setOptions({ tabBarVisible: !isMonthlyView });
+      const parentNavigator = navigation.getParent();
+      if (parentNavigator) {
+        parentNavigator.setOptions({ tabBarStyle: { display: isCalendarExpanded ? 'none' : 'flex' } });
+      }
     }
-  }, [isFocused, isMonthlyView, navigation]);
+  }, [isFocused, isCalendarExpanded, navigation]);
 
   const renderItem = (item: Event) => {
     return <CalendarItem item={item} onUpdate={(updatedItem) => {
-      // Handle item update
+      console.log('Updated item:', updatedItem);
     }} />;
   };
 
   return (
     <View style={{ flex: 1 }}>
-      
       <Agenda
         items={events}
         selected={firstEventDate}
@@ -87,14 +90,14 @@ const CalendarEventScreen: React.FC = ({ navigation }) => {
           agendaTodayColor: tertiary,
           agendaKnobColor: brand,
         }}
-        showOnlySelectedDayItems={!isMonthlyView}
+        showOnlySelectedDayItems={false}
+        onCalendarToggled={(calendarOpened) => {
+          setIsCalendarExpanded(calendarOpened);
+          setIsTabBarVisible(!calendarOpened);
+        }}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  // Add your styles here
-});
 
 export default CalendarEventScreen;

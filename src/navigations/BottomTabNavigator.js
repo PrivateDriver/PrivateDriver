@@ -52,7 +52,7 @@ const BottomTabNavigator = () => {
         name="Event"
         component={CalendarEventScreen}
         options={{
-          title: 'Calendar Events',
+          title: 'Events',
           headerShown: true,
           headerLeft: () => {
             return (
