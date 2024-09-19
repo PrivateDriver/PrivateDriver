@@ -39,6 +39,8 @@
     "react-native-text-link": "^1.0.0",
     "react-native-vector-icons": "^9.2.0",
     "react-navigation-tabs": "^2.11.2",
+    "react-redux": "^9.1.2",
+    "redux": "^5.0.1",
     "rimraf": "^6.0.1",
     "styled-components": "^5.3.6",
     "yup": "^1.2.0"

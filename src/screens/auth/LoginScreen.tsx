@@ -29,6 +29,7 @@ import {
 } from '../../components/styles';
 
 import { View, TextInputProps } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 // Colors
 const { brand, tertiary } = Colors;
@@ -44,6 +45,8 @@ interface FormValues {
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [hidePassword, setHidePassword] = useState(true);
+
+  const dispatch = useDispatch();
 
   return (
     <StyledContainer>
@@ -69,7 +72,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                 console.log('Invalid credentials');
               }
               if (response.status === 200) {
-                console.log('Logged in successfully');
+                console.log('Logged in successfully ===', response.data);
+                // response.data should be user object, then update the store
+                dispatch({ type: 'LOGIN', payload: response.data });
 
                 // Actual auth work here....
                 //
