@@ -63,5 +63,8 @@
     "useTabs": false,
     "arrowParens": "avoid",
     "printWidth": 120
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
