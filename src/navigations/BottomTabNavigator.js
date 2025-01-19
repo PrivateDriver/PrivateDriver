@@ -38,8 +38,8 @@ const BottomTabNavigator = () => {
         tabBarIcon: ({ color }) => {
           const icons = {
             Home: 'home-sharp',
-            Event: 'md-calendar-sharp',
-            Driver: 'md-person-sharp',
+            Event: 'calendar-number',
+            Driver: 'person',
             Client: 'md-people-sharp',
             Vehicle: 'md-car-sport-sharp',
           }

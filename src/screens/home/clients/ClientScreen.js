@@ -74,7 +74,7 @@ const ClientScreen = () => {
                   }}
                 >
                   <Icon
-                    name="md-calendar-sharp"
+                    name="calendar-number"
                     size={40}
                     color={darkLight}
                     style={{ marginRight: 20, marginTop: 5, marginLeft: 5 }}
